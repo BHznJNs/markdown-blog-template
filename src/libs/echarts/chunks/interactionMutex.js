@@ -1,0 +1,1 @@
+import{b0 as t,u as r}from"./core.js";var n="\0_ec_interaction_mutex";function a(t,r,n){u(t)[r]=n}function e(t,r,n){var a=u(t);a[r]===n&&(a[r]=null)}function o(t,r){return!!u(t)[r]}function u(t){return t[n]||(t[n]={})}t({type:"takeGlobalCursor",event:"globalCursorTaken",update:"update"},r);export{o as i,e as r,a as t};

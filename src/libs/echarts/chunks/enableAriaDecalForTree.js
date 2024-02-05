@@ -1,0 +1,1 @@
+import{g as e}from"./core.js";function a(a){var t=a.getData().tree,o={};t.eachNode((function(t){for(var r=t;r&&r.depth>1;)r=r.parentNode;var d=e(a.ecModel,r.name||r.dataIndex+"",o);t.setVisual("decal",d)}))}export{a as e};

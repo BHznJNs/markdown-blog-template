@@ -1,0 +1,66 @@
+ol,
+ul,
+li {
+    --border-radius-value: 6px;
+    color: inherit;
+    transition: color .3s .15s;
+}
+
+ol {
+    padding-left: 1em;
+    overflow-wrap: break-word;
+}
+ul {
+    margin-left: 1em;
+    padding-left: 1.625em;
+    overflow-wrap: break-word;
+}
+
+ol li,
+ul li {
+    margin-bottom: .25em;
+    transition: color .3s,
+                background .3s;
+}
+
+ul > li {
+    padding-left: 5px;
+    border-top-left-radius: var(--border-radius-value);
+    border-bottom-left-radius: var(--border-radius-value);
+}
+ul > li:hover {
+    background-color: var(--hovered-bg-color);
+}
+ul > li::marker {
+    font-size: 1.25em;
+    color: var(--default-tx-color);
+    transition: color .3s;
+}
+ul > li:hover::marker {
+    color: var(--deep-bd-color);
+}
+
+ol {
+    list-style: none;
+    overflow-x: hidden;
+}
+ol > li {
+    counter-increment: list-item;
+    margin-bottom: 0;
+    padding: 4px;
+    overflow-wrap: anywhere;
+    border-radius: var(--border-radius-value);
+}
+ol > li:hover {
+    background-color: var(--hovered-bg-color);
+}
+ol > li::before {
+    content: counter(list-item);
+    padding: 0 .375em;
+    margin-right: .5em;
+    color: var(--default-bg-color);
+    background-color: var(--default-tx-color);
+    border-radius: var(--border-radius-value);
+    font-weight: normal;
+    transition: inherit;
+}

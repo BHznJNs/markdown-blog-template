@@ -1,0 +1,68 @@
+main {
+    margin: 2rem var(--page-horizonal-padding) 4rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: var(--default-tx-color);
+    background-color: var(--default-bg-color);
+    box-shadow: var(--shadow-lg);
+    transition: background .6s;
+}
+
+@media screen and (max-width: 767px) {
+    /* Mobile phone style */
+    main {
+        padding: 1rem 1.6rem;
+        border-radius: .75rem;
+        box-shadow: var(--shadow-md-2);
+    }
+}
+
+/* --- --- --- */
+
+main ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+main[data-is-root="true"] #previous-dir {
+    display: none;
+}
+main[data-is-root="true"] #newest {
+    display: block;
+}
+
+ul#newest {
+    display: none;
+}
+
+main ul li {
+    color: var(--default-tx-color);
+    border: solid 2px var(--deep-bd-color);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 6px 1rem;
+    cursor: pointer;
+    transition: color .3s
+                background .3s;
+}
+.dark main ul li {
+    border-color: var(--shallow-bd-color);
+}
+
+main ul li:hover {
+    color: var(--hovered-tx-color);
+    background-color: var(--hovered-bg-color);
+}
+
+main.disabled {
+    pointer-events: none;
+    opacity: .85;
+}
+
+#article-list :not(li) {
+    /* 
+        prevents the event emits from the `code` and `span`
+        elements under the `li` element
+     */
+    pointer-events: none;
+}

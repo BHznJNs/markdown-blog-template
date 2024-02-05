@@ -1,0 +1,46 @@
+@media screen and (max-width: 767px) {
+    blockquote {
+        margin-left: 1rem !important;
+        margin-right: 0 !important;
+    }
+}
+blockquote {
+    position: relative;
+    padding: 0.1px 1rem;
+    margin-right: 1rem;
+    color: var(--quote-tx-color);
+    background-color: var(--quote-bg-color);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transition: color .3s .15s,
+                background .3s .15s;
+}
+
+blockquote code:not(pre code) {
+    filter: invert(15%);
+}
+
+blockquote::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    content: " ";
+    width: .125em;
+    max-width: 8px;
+    height: 100%;
+    background-color: var(--deep-bd-color);
+    cursor: pointer;
+    z-index: 1;
+    transition: width .3s,
+                transform .3s .05s;
+}
+
+blockquote:hover::before {
+    width: .375em;
+    transform: translateX(-3px);
+}
+
+body:not(.dark) blockquote > .details .details-children {
+    border-color: todo;
+}

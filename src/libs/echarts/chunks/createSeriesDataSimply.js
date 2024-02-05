@@ -1,0 +1,1 @@
+import{j as e,e as n,dr as o,aN as r}from"./core.js";function s(s,a,i){a=e(a)&&{coordDimensions:a}||n({encodeDefine:s.getEncode()},a);var t=s.getSource(),c=o(t,a).dimensions,d=new r(c,s);return d.initData(t,i),d}export{s as c};

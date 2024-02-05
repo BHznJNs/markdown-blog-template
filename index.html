@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkdownBlog</title>
+    <link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./dist/style.min.css">
+    <script src="./dist/index.min.js" type="module" defer></script>
+</head>
+<body>
+<script>
+const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+const darkModeSwitcher = () => {
+    const isDarkMode = darkModeMediaQuery.matches
+    document.body.classList.toggle("dark", isDarkMode)
+}
+if (darkModeMediaQuery) {
+    darkModeMediaQuery.addListener(darkModeSwitcher)
+    darkModeSwitcher()
+}
+</script>
+<fab-icon></fab-icon>
+<nav>
+    <a
+        id="homepage"
+        class="icon-btn underline-side left"
+        href="#"
+        onclick="globalThis.__CurrentPage__=1"
+    >
+        <img src="./dist/imgs/homepage.svg" alt="home">
+        <span class="underline-target">Home</span>
+    </a>
+    <span>
+
+        <span>
+            <span
+                id="light-btn"
+                class="icon-btn"
+                role="button"
+                tabindex="0"
+                title="Light Mode"
+                onclick="document.body.classList.remove('dark')"
+            >
+                <img
+                    src="./dist/imgs/sun.svg"
+                    alt="Light Mode Icon"
+                >
+            </span>
+            <span
+                id="dark-btn"
+                class="icon-btn"
+                role="button"
+                tabindex="0"
+                title="Dark Mode"
+                onclick="document.body.classList.add('dark')"
+            >
+                <img
+                    src="./dist/imgs/moon.svg"
+                    alt="Dark Mode Icon"
+                >
+            </span>
+        </span>
+    </span>
+</nav>
+<main style="display: none;" data-is-root=true>
+    <header id="directory-description"></header>
+
+    <ul id="previous-dir"><li tabindex="0">../</li></ul>
+    <ul id="article-list"></ul>
+    <paging-view></paging-view>
+</main>
+<article-catalog></article-catalog>
+<article style="display: none;"></article>
+<footer><p><span class="dim">Powered by <a href="https://github.com/BHznJNs/markdown-blog-template" target="_blank">MarkdownBlogTemplate</a></span></p></footer>
+</body>
+</html>

@@ -1,0 +1,1 @@
+import{j as r,o as a,aQ as n}from"./core.js";function o(o,u,e){var s=o.get("borderRadius");if(null==s)return e?{cornerRadius:0}:null;r(s)||(s=[s,s,s,s]);var t=Math.abs(u.r||0-u.r0||0);return{cornerRadius:a(s,(function(r){return n(r,t)}))}}export{o as g};

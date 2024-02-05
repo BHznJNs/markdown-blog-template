@@ -1,0 +1,135 @@
+import { writeFileSync } from "node:fs"
+import config from "../build.config.js"
+import { indexHTMLPath } from "./utils/path.js"
+import renderer from "../src/utils/markdown/index.js"
+import languageSelector from "../src/utils/languageSelector.js"
+
+const HTMLHeader = `\
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${config.title ? "MarkdownBlog" : config.title}</title>
+    <link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./dist/style.min.css">
+    <script src="./dist/index.min.js" type="module" defer></script>
+</head>`
+
+const inlineDarkmodeSwitcherScript = `\
+<script>
+const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+const darkModeSwitcher = () => {
+    const isDarkMode = darkModeMediaQuery.matches
+    document.body.classList.toggle("dark", isDarkMode)
+}
+if (darkModeMediaQuery) {
+    darkModeMediaQuery.addListener(darkModeSwitcher)
+    darkModeSwitcher()
+}
+</script>`
+
+const navigator = `\
+<nav>
+    <a
+        id="homepage"
+        class="icon-btn underline-side left"
+        href="#"
+        onclick="globalThis.__CurrentPage__=1"
+    >
+        <img src="./dist/imgs/homepage.svg" alt="${languageSelector("主页", "home")}">
+        <span class="underline-target">${languageSelector("主页", "Home")}</span>
+    </a>
+    <span>
+${(config.enableRSS) ? `\
+        <a
+            id="rss-icon"
+            class="icon-btn"
+            href="./rss.xml"
+            title="${languageSelector("RSS 订阅", "RSS Subscribe")}"
+        >
+            <img
+                src="./dist/imgs/rss.svg"
+                alt="${languageSelector("RSS 订阅", "RSS Subscribe")}"
+            >
+        </a>` : ""}
+        <span>
+            <span
+                id="light-btn"
+                class="icon-btn"
+                role="button"
+                tabindex="0"
+                title="${languageSelector("亮色模式", "Light Mode")}"
+                onclick="document.body.classList.remove('dark')"
+            >
+                <img
+                    src="./dist/imgs/sun.svg"
+                    alt="${languageSelector("亮色模式图标", "Light Mode Icon")}"
+                >
+            </span>
+            <span
+                id="dark-btn"
+                class="icon-btn"
+                role="button"
+                tabindex="0"
+                title="${languageSelector("黑暗模式", "Dark Mode")}"
+                onclick="document.body.classList.add('dark')"
+            >
+                <img
+                    src="./dist/imgs/moon.svg"
+                    alt="${languageSelector("黑暗模式图标", "Dark Mode Icon")}"
+                >
+            </span>
+        </span>
+    </span>
+</nav>`
+
+const main = `\
+<main style="display: none;" data-is-root=true>
+    <header id="directory-description"></header>
+${config.enableNewest ? `\
+    <ul id="newest">
+        <li
+            tabindex="0"
+            onclick="location.hash = 'newest/'"
+        >
+            ${languageSelector("最新博文", "Newests")}
+        </li>
+    </ul>` : ""}
+    <ul id="previous-dir"><li tabindex="0">../</li></ul>
+    <ul id="article-list"></ul>
+    <paging-view></paging-view>
+</main>`
+
+const footer = config.footer
+    ? `<footer>${
+        renderer(config.footer)
+            .map(node => node.toHTML())
+            .join("")
+        }</footer>`
+    : ""
+
+// --- --- --- --- --- ---
+
+const template = `\
+<!DOCTYPE html>
+<html lang="${languageSelector("zh-CN", "en")}">
+${HTMLHeader}
+<body>
+${inlineDarkmodeSwitcherScript}
+${config.enableFab
+    ? "<fab-icon></fab-icon>"
+    : ""
+}
+${navigator}
+${main}
+${config.enableCatalog
+    ? "<article-catalog></article-catalog>"
+    : ""
+}
+<article style="display: none;"></article>
+${footer}
+</body>
+</html>`
+
+export default () => writeFileSync(indexHTMLPath, template)

@@ -1,0 +1,28 @@
+@media screen and (min-width: 960px) {
+    /* PC style */
+    div.math {
+        font-size: 1.3em !important;
+    }
+}
+
+div.math {
+    width: max-content;
+    max-width: 100%; /* prevent overflow*/
+    margin: 0 auto;
+    padding: 2px .5rem 6px;
+    color: var(--default-tx-color);
+    font-size: 1.2em;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    line-height: 1.75;
+    box-sizing: border-box;
+}
+span.math {
+    font-size: 1.125em;
+}
+span.math img {
+    /* for server side rendered formula */
+    height: calc(1em + 16px);
+    vertical-align: middle;
+}

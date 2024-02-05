@@ -1,9 +1,26 @@
-# Copyright Announcement
+![Logo](./src/imgs/favicon.png)
 
-The blog contents within this repository is licensed under a Creative Commons ([CC-BY 4.0](http://creativecommons.org/licenses/by/4.0/)) license, whereas all source codes pertaining to this website are released under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt) open-source license.
+# MarkdownBlogTemplate
+
+[\[简体中文\]](./README_CN.md) [\[Documentation\]](https://bhznjns.github.io/markdown-blog-template/)
+
+Build your own online knowledge base with markdown!
 
 - - -
 
-# 版权声明
+## Introduction
 
-此仓库的所有博文以 [CC-BY 4.0](http://creativecommons.org/licenses/by/4.0/) 许可证开放，此网站的所有源代码以 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt) 许可证开源。
+The MarkdownBlogTemplate is a static blog website template that can also be used to build a personal online knowledge base. It allows users to write articles in the easy-to-read and understand Markdown format. Unlike popular static website generators like  [Hexo](https://hexo.io/zh-cn), [Jekyll](https://jekyllcn.com/docs/home/), [Hogo](https://www.gohugo.org/) , MarkdownBlogTemplate can directly read and render Markdown files on the frontend without the need for server-side rendering.
+
+MarkdownBlogTemplate supports **abundant extra functions of Markdown**:
+- **Code highlights and tables**: Built-in support for table structures and highlighting of codes in multiple programming languages.
+- **Media embedded**: supports special syntaxes for inserting audio and videos.
+- **Independent page embedded**: it is allowed to embed independent page by inlining HTML codes or linking independent HTML file with specific syntax.
+- **Math formula rendering**: LaTeX rendering library [KaTeX](https://katex.org/) integrated, which makes it convenient to insert math formulas.
+- **Charts rendering**: With the help of chart rendering libraries like [ECharts](https://echarts.apache.org/zh/index.html) and
+[flowchart.js](http://flowchart.js.org/), it is allowed to render charts like bar chart, flow chart, gantt chart with Markdown texts.
+- **QRCode generating**: QRCodes can be easily generated with  special Markdown syntax.
+
+## Installation
+
+See here：[Installation —— MarkdownBlogTemplate Documentation](todo)

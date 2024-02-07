@@ -5,6 +5,7 @@ import config from "../build.config.js"
 import pageController from "./components/paging.js"
 import keydownEvent from "./utils/dom/keydownEvent.js"
 import pathManager from "./scripts/pathManager"
+import { setIframeTheme } from "./scripts/iframeController.js"
 
 // import optional components
 if (config.enableFab) {
@@ -39,13 +40,7 @@ window.addEventListener("beforeunload", e => {
 })
 
 // set embedded iframe theme
-const darkmodeObserver    = new MutationObserver(_ => {
-    const isDarkMode      = document.body.classList.contains("dark")
-    const theme           = isDarkMode ? "dark" : "light"
-    const embeddedIframes = document.querySelectorAll("iframe[srcdoc]")
-    embeddedIframes.forEach(el =>
-        el.contentWindow.postMessage({ theme }, "*"))
-})
+const darkmodeObserver = new MutationObserver(setIframeTheme)
 darkmodeObserver.observe(document.body, {
     attributes: true,
     attributeFilter: ["class"]

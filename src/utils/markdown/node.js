@@ -351,8 +351,10 @@ export class IframeBlock {
     // injected html codes, used to auto darkmode
     // and send height message
     static #injectedCodes = id => `\
-<style>body.light {color:#333;background:#fff}
-body.dark {color:#f7f7f7;background:#252525}</style>
+<style>
+body{transition: .3s .15s}
+body.light{color:#333;background:#fff}
+body.dark{color:#f7f7f7;background:#252525}</style>
 <script>
 const rootEl = document.documentElement
 function postHeight() {

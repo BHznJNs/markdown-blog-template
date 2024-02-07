@@ -9,6 +9,7 @@ import config from "../../build.config.js"
 import { Headline } from "../utils/markdown/node.js"
 import languageSelector from "../utils/languageSelector.js"
 import { scrollToPos } from "../utils/dom/scrollControl.js"
+import { allIframeLoaded, setIframeTheme } from "./iframeController.js"
 
 const articleEl = document.querySelector("article")
 const emptyArticlePlaceHolder = languageSelector("空文章", "Empty Article")
@@ -58,7 +59,8 @@ export default function articleRender(articleEl, mdText) {
 
     articleEl.innerHTML = ""
     resultNodes.forEach(el => articleEl.appendChild(el))
-
+    // set iframes' theme after all loaded
+    allIframeLoaded().then(setIframeTheme)
     articleEl.style.display = "block"
     articleEl.querySelectorAll("[tabindex='0']").forEach((el) => {
         el.onkeydown = keydownEvent(el)

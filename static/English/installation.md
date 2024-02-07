@@ -38,3 +38,10 @@ If you wish to modify this project's frontend source code and apply the changes,
 npm install --only=dev
 ```
 >>>
+
+## Edit the Configuration File
+
+Locale the file named ``build.config.js`` in the root directory of project, and it is the configuration for this project.
+- Modify the ``language`` to your preferred language (``en`` for English and ``zh`` for Simplfied Chinese).
+- Modify the ``homepage`` to the URL where you deploy this project. E.g., [https:\/\/bhznjns.github.io/markdown-blog-template/](https://bhznjns.github.io/markdown-blog-template/).
+- Modify the ``title`` to the name of your site.

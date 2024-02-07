@@ -351,14 +351,8 @@ export class IframeBlock {
     // injected html codes, used to auto darkmode
     // and send height message
     static #injectedCodes = id => `\
-<style>
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: white;
-    background-color: #121212;
-  }
-}
-</style>
+<style>body.light {color:#333;background:#fff}
+body.dark {color:#f7f7f7;background:#252525}</style>
 <script>
 const rootEl = document.documentElement
 function postHeight() {
@@ -371,9 +365,14 @@ function postHeight() {
 }
 window.addEventListener("load", postHeight)
 window.addEventListener("message", e => {
-  const { fontSize } = e.data
-  rootEl.style.fontSize = fontSize
-  postHeight()
+const { fontSize, theme } = e.data
+if (fontSize) {
+    rootEl.style.fontSize = fontSize
+    postHeight()
+}
+if (theme) {
+    document.body.classList = theme
+}
 })
 </script>`
 

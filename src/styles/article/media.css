@@ -103,7 +103,7 @@ div.media-container img.load-error::after {
 div.media-container iframe {
     border: none;
     height: 50vh;
-    background-color: white;
+    background-color: var(--default-bg-color);
 }
 
 /* Charts styles start */

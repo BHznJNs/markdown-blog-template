@@ -4,7 +4,7 @@ const articleEl = document.querySelector("article")
 
 let fontSizeOffset = 0
 function setIframesRem(fontSize) {
-    const embeddedIframes = document.querySelectorAll("article iframe[srcdoc]")
+    const embeddedIframes = document.querySelectorAll("iframe[srcdoc]")
     embeddedIframes.forEach(el =>
         el.contentWindow.postMessage({ fontSize }, "*"))
 }

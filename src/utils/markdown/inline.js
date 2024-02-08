@@ -153,6 +153,7 @@ function parser(source) {
                 } else {
                     textTerm += ch
                 }
+                isEscape = false
                 continue
             }
 
@@ -264,6 +265,7 @@ export default function parseEntry(source) {
 }
 
 // test cases
+// console.log(parser("``\\```"))
 // console.log(parseEntry("##bo//itelic//ld##"))
 // console.log(parseEntry("##bo[link text](http://www.com)ld##"))
 // console.log(parseEntry("::dim[link text](http://www.com)med::"))

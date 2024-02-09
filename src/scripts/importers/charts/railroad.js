@@ -2,12 +2,27 @@ import importStyle from "../style.js"
 import ChartImporter from "./importer.js"
 import config from "../../../../build.config.js"
 
+let railroadRenderOptions = null
 const { railroadOptions } = config
+const ASCIIPattern = /[\x00-\x7F]/
+const CJKPattern   = /['"]([^'"]*[\u3400-\u9fff\uac00-\ud7ff\uf900-\ufaff\u3040-\u309f\u30a0-\u30ff]+[^'"]*)['"]/g
 
 class RailroadImporter extends ChartImporter {
     _targetElList = () => document.querySelectorAll(".railroad-container")
 
-    renderItem(el, chartContent) {
+    renderItem(el, chartContent="") {
+        const CHAR_WIDTH_before = railroadRenderOptions.CHAR_WIDTH
+        const containsCJK = CJKPattern.test(chartContent)
+        const isAllContainsASCII = (chartContent.match(CJKPattern) || [])
+            .map(matchItem => matchItem.slice(1, -1))
+            .every(item => ASCIIPattern.test(item))
+        const targetCharWidth = containsCJK
+            && (isAllContainsASCII ? 13 : 14)
+            || railroadRenderOptions.CHAR_WIDTH
+        if (railroadRenderOptions.CHAR_WIDTH < targetCharWidth) {
+            railroadRenderOptions.CHAR_WIDTH = targetCharWidth
+        }
+
         const renderArgs = this._module.concat(el)
         const renderFn = new Function(
             "Diagram",
@@ -34,6 +49,8 @@ class RailroadImporter extends ChartImporter {
             chartContent + ".addTo(targetElement)",
         )
         renderFn.apply(null, renderArgs)
+        // restore CHAR_WIDTH
+        railroadRenderOptions.CHAR_WIDTH = CHAR_WIDTH_before
     }
 
     async importModule() {
@@ -50,6 +67,7 @@ class RailroadImporter extends ChartImporter {
             CHAR_WIDTH        : railroadOptions.charWidth,
             COMMENT_CHAR_WIDTH: railroadOptions.commentCharWidth,
         })
+        railroadRenderOptions = Options
         return [
             rr.Diagram,
             rr.ComplexDiagram,

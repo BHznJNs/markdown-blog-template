@@ -43,11 +43,17 @@ export default function indexing(dir, indexName) {
     let index = 0
     for (const slice of sliced) {
         index += 1
-        writeFileSync(`${indexFilePath}${indexName}_${index}`, JSON.stringify({
+        const indexFileContent = {
             total: count,
             current: index,
             content: slice,
-            directoryDescription,
-        }))
+        }
+        if (index === 1 && directoryDescription !== undefined) {
+            indexFileContent.directoryDescription = directoryDescription
+        }
+        writeFileSync(
+            `${indexFilePath}${indexName}_${index}`,
+            JSON.stringify(indexFileContent)
+        )
     }
 }

@@ -23,4 +23,4 @@ MarkdownBlogTemplate 支持**丰富的 Markdown 扩展功能**：
 
 ## 安装
 
-见此：[安装指南 —— MarkdownBlogTemplate 使用文档](todo)
+见此：[安装指南 —— MarkdownBlogTemplate 使用文档](./static/中文/安装.md)

@@ -23,4 +23,4 @@ MarkdownBlogTemplate supports **abundant extra functions of Markdown**:
 
 ## Installation
 
-See here：[Installation —— MarkdownBlogTemplate Documentation](todo)
+See here：[Installation —— MarkdownBlogTemplate Documentation](./static/English/installation.md)

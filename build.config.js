@@ -188,7 +188,7 @@ export default {
     /**
      * railroadOptions: Object
      * the global general config options for railroad chart rendering, see here: https://github.com/tabatkins/railroad-diagrams/blob/gh-pages/README-js.md
-     * 铁路渲染的全局配置项，见此：https://github.com/tabatkins/railroad-diagrams/blob/gh-pages/README-js.md
+     * 铁路图渲染的全局配置项，见此：https://github.com/tabatkins/railroad-diagrams/blob/gh-pages/README-js.md
      */
     railroadOptions: {
         verticalGap: 8, // the minimum amount of vertical separation between two items

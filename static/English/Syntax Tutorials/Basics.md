@@ -71,10 +71,10 @@ $$e = mc^2$$
 ## Links
 
 ```markdown
-<!-- External Link -->
+<!-- External Links -->
 [GitHub](https://github.com)
 [https:\/\/github.com](https://github.com)
-<!-- Internal Line -->
+<!-- Internal Links -->
 [English Documentation Directory](English/)
 [English Syntax Tutorials Directory](English/Syntax Tutorials/)
 ```

@@ -10,6 +10,7 @@ const HTMLHeader = `\
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="color-scheme" content="light dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${config.description ? `    <meta name="description" content="${config.description}">` : ""}
     <title>${config.title ? config.title : "MarkdownBlog"}</title>
     <link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./dist/style.min.css">

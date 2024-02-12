@@ -14,6 +14,13 @@ export default {
     title: "Markdown Blog Template Documentation",
 
     /**
+     * description: String
+     * the description for the site, is necessary for RSS.
+     * 网站的描述，对于 RSS 功能是必要的。
+     */
+    description: "A markdown static blog site.",
+
+    /**
      * footer: String
      * the footer for this site, can be deleted if you do not need it
      * 站点的脚注，如果你不需要可以删除

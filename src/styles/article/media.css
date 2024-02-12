@@ -6,7 +6,8 @@ div.media-container {
     box-shadow: var(--shadow-md-1);
     overflow-x: hidden;
     overflow-y: auto;
-    transition: box-shadow .3s;
+    transition: background .3s .15s,
+                box-shadow .3s;
 }
 @media screen and (max-width: 767px) {
     /* Mobile phone style */
@@ -72,6 +73,8 @@ div.media-container img.load-error::before {
     background-repeat: no-repeat;
     background-position: 50% calc(50% - 8px);
     background-size: 85% 85%;
+    transition: filter .3s .15s,
+                background .3s .15s;
 }
 div.media-container img.load-error::after {
     position: absolute;
@@ -89,6 +92,8 @@ div.media-container img.load-error::after {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color .3s .15s,
+                background .3s .15s;
 }
 
 .dark div.media-container img.load-error::before {
@@ -129,6 +134,7 @@ div.media-container .ganttchart-container {
 .railroad-container svg {
     width: 100%;
     background-color: var(--chart-bg-color) !important;
+    transition: background .3s .15s;
 }
 body.dark .flowchart-container svg,
 body.dark .sequencechart-container svg {

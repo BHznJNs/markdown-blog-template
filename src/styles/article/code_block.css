@@ -44,7 +44,9 @@ pre.code-block code {
     padding: calc(1em + 4px) 1rem 1rem;
     overflow-x: auto;
     font-size: 1em;
-    font-family: "Lucida Console", Consolas, monospace;
+    font-family: JetBrains Mono, Fira Code,
+        Menlo, Monaco,
+        Consolas, monospace;
     border-radius: 8px;
     background-color: var(--default-block-code-bg-color);
     box-shadow: var(--shadow-md-1);

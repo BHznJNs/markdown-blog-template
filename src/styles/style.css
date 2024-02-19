@@ -5,6 +5,13 @@
 @import url(./components/index.css);
 
 body {
+    --text-font:
+    /* en */ -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Helvetica Neue,Helvetica,Arial,
+    /* zh */ PingFang SC,Hiragino Sans GB,Microsoft YaHei UI,Microsoft YaHei,Source Han Sans CN,sans-serif;
+    --code-font: JetBrains Mono, Fira Code,
+        Menlo, Monaco,
+        Consolas, monospace;
+
     --page-horizonal-padding: 10vw;
     --shadow-sm: 0 2px 1px -1px rgba(0,0,0,.2),
                  0 1px 1px 0 rgba(0,0,0,.14),
@@ -21,9 +28,7 @@ body {
 
     margin: 0;
     background-color: var(--allpage-bg-color);
-    font-family:
-    /* en */ -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Helvetica Neue,Helvetica,Arial,
-    /* zh */ PingFang SC,Hiragino Sans GB,Microsoft YaHei UI,Microsoft YaHei,Source Han Sans CN,sans-serif;
+    font-family: var(--text-font);
     transition: background .6s,
                 color .3s;
 }

@@ -1,6 +1,5 @@
 import renderer from "./index.js"
 import { Para } from "./node.js"
-import config from "../../../build.config.js"
 import languageSelector from "../../../src/utils/languageSelector.js"
 
 export class ArticleInfo {

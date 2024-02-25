@@ -4,7 +4,7 @@ import { indexHTMLPath } from "./utils/path.js"
 import renderer from "../src/utils/markdown/index.js"
 import languageSelector from "../src/utils/languageSelector.js"
 
-const HTMLHeader = `\
+export const header = `\
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,10 +14,9 @@ ${config.description ? `    <meta name="description" content="${config.descripti
     <title>${config.title ? config.title : "MarkdownBlog"}</title>
     <link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./dist/style.min.css">
-    <script src="./dist/index.min.js" type="module" defer></script>
 </head>`
 
-const inlineDarkmodeSwitcherScript = `\
+export const inlineDarkmodeSwitcherScript = `\
 <script>
 const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
 const darkModeSwitcher = () => {
@@ -30,12 +29,12 @@ if (darkModeMediaQuery) {
 }
 </script>`
 
-const navigator = `\
+export const navigator = `\
 <nav>
     <a
         id="homepage"
         class="icon-btn underline-side left"
-        href="#"
+        href="./"
         onclick="globalThis.__CurrentPage__=1"
     >
         <img src="./dist/imgs/homepage.svg" alt="${languageSelector("主页", "home")}">
@@ -102,7 +101,7 @@ ${config.enableNewest ? `\
     <paging-view></paging-view>
 </main>`
 
-const footer = config.footer
+export const footer = config.footer
     ? `<footer>${
         renderer(config.footer)
             .map(node => node.toHTML())
@@ -115,8 +114,9 @@ const footer = config.footer
 const template = `\
 <!DOCTYPE html>
 <html lang="${languageSelector("zh-CN", "en")}">
-${HTMLHeader}
+${header}
 <body>
+<script src="./dist/index.min.js" type="module" defer></script>
 ${inlineDarkmodeSwitcherScript}
 ${config.enableFab
     ? "<fab-icon></fab-icon>"

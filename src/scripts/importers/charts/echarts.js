@@ -13,6 +13,8 @@ const globalOptions = config.echartsOptions
 
 function chartOptionResolver(options={}, libsToImport) {
     const ignoredProps = [
+        "width",
+        "height",
         "color",
         "backgroundColor",
         "darkMode",
@@ -40,7 +42,12 @@ function chartOptionResolver(options={}, libsToImport) {
             continue
         }
         if (key === "series") {
-            for (const item of options.series) {
+            const { series } = options
+            if (!(series instanceof Array)) {
+                libsToImport.charts.add(series.type)
+                continue
+            }
+            for (const item of series) {
                 if (!("type" in item)) {
                     continue
                 }
@@ -64,6 +71,28 @@ function chartOptionResolver(options={}, libsToImport) {
         }
         libsToImport.components.add(key)
     }
+}
+
+function specificChartResolver(options, isDarkMode) {
+    let resultObj = options
+    if (isDarkMode && "calendar" in options) {
+        const calendarChartDarkModeOptions = {
+            splitLine : { lineStyle: { color: "white" } },
+            dayLabel  : { color: "#eee" },
+            monthLabel: { color: "#eee" },
+            itemStyle : {
+                color : "none",
+                borderWidth: 0.5,
+            },
+        }
+        if (options.calendar instanceof Array) {
+            options.calendar.forEach(obj =>
+                mergeObj(obj, calendarChartDarkModeOptions))
+        } else {
+            mergeObj(options.calendar, calendarChartDarkModeOptions)
+        }
+    }
+    return resultObj
 }
 
 async function importChartLibs(chartOptions) {
@@ -97,18 +126,32 @@ class EchartsImporter extends ChartImporter {
             .forEach(el =>
                 echarts.getInstanceByDom(el).resize())
     }
+    #sizeSetter(el, options) {
+        if (options.width) {
+            el.style.width = options.width + "px"
+            delete options.width
+        }
+        if (options.height) {
+            el.style.height = options.height + "px"
+            delete options.height
+        }
+    }
 
     // --- --- --- --- --- ---
 
     renderItem(el) {
+        this.#sizeSetter(el, el.__ChartOptions__)
+
         const isDarkMode = document.body.classList.contains("dark")
         const renderMode = isDarkMode ? "another-dark" : "light"
         const chartInst  = this._module.init(el, renderMode)
 
-        // options merging
-        const currentOptions = el.__ChartOptions__
-        const globalOptionsCloned = mergeObj({}, globalOptions)
-        const finalOptions = mergeObj(globalOptionsCloned, currentOptions)
+        // options clone
+        const globalOptionsCloned = structuredClone(globalOptions)
+        const currentOptionsCloned = structuredClone(el.__ChartOptions__)
+        // options merge
+        const specificResolved = specificChartResolver(currentOptionsCloned, isDarkMode)
+        const finalOptions = mergeObj(globalOptionsCloned, specificResolved)
         chartInst.setOption(finalOptions)
     }
 

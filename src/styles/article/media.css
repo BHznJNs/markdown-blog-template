@@ -4,8 +4,7 @@ div.media-container {
     background-color: var(--default-bg-color);
     border-radius: 8px;
     box-shadow: var(--shadow-md-1);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
     transition: background .3s .15s,
                 box-shadow .3s;
 }

@@ -1,6 +1,6 @@
 import os from "node:os"
 import express from "express"
-import config from "./build.config.js"
+import config from "../../build.config.js"
 
 const app = express()
 const port = config.previewPort

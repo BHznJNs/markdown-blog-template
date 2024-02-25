@@ -9,9 +9,9 @@
     <title>Markdown Blog Template Documentation</title>
     <link rel="shortcut icon" href="./dist/imgs/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./dist/style.min.css">
-    <script src="./dist/index.min.js" type="module" defer></script>
 </head>
 <body>
+<script src="./dist/index.min.js" type="module" defer></script>
 <script>
 const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
 const darkModeSwitcher = () => {
@@ -28,7 +28,7 @@ if (darkModeMediaQuery) {
     <a
         id="homepage"
         class="icon-btn underline-side left"
-        href="#"
+        href="./"
         onclick="globalThis.__CurrentPage__=1"
     >
         <img src="./dist/imgs/homepage.svg" alt="home">
@@ -75,6 +75,6 @@ if (darkModeMediaQuery) {
 </main>
 <article-catalog></article-catalog>
 <article style="display: none;"></article>
-<footer><p><span class="dim">Powered by <a href="https://github.com/BHznJNs/markdown-blog-template" target="_blank">MarkdownBlogTemplate</a></span></p></footer>
+<footer><p><span class="dim"><a href="count.html">Site Statistic</a> | Powered by <a href="https://github.com/BHznJNs/markdown-blog-template" target="_blank">MarkdownBlogTemplate</a></span></p></footer>
 </body>
 </html>

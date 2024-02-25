@@ -1,16 +1,26 @@
-export default function mergeObj(destObj={}, srcObj={}) {
+export default 
+function mergeObj(destObj={}, srcObj={}) {
     for (const key of Object.keys(srcObj)) {
-        if (!(key in destObj)) {
-            destObj[key] = srcObj[key]
-            continue
-        }
-        // for properties that is in the `destObj`
-        if (typeof destObj[key] !== "object") {
-            continue
-        }
+        const isDestKeyObj = typeof destObj[key] === "object"
+        const isSrcKeyObj  = typeof srcObj [key] === "object"
+        const isKeyInDest  = key in destObj
 
-        // for object properties
-        mergeObj(destObj[key], srcObj[key])
+        if (isKeyInDest && !isDestKeyObj) {
+            continue
+        }
+        if (isKeyInDest && isDestKeyObj) {
+            if (isSrcKeyObj) {
+                mergeObj(destObj[key], srcObj[key])
+            }
+            continue
+        }
+        if (!isKeyInDest) {
+            if (isSrcKeyObj) {
+                destObj[key] = structuredClone(srcObj[key])
+            } else {
+                destObj[key] = srcObj[key]
+            }
+        }
     }
     return destObj
 }

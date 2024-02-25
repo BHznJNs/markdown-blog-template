@@ -1,8 +1,59 @@
 import mdResolver from "./index.js"
 import { render } from "../renderer/index.js"
 import el from "../../../src/utils/dom/el.js"
+import { countEntry } from "../../../src/utils/markdown/inline.js"
+import countWord from "../../../src/utils/countWord.js"
 import languageSelector from "../../../src/utils/languageSelector.js"
 import getInterval from "../../../src/utils/markdown/utils/getInterval.js"
+import {
+    Headline,
+    Para,
+    Quote,
+    Divider,
+    List,
+    Table,
+} from "./node.js"
+
+// count method patches
+Headline.prototype.count = function() {
+    return countEntry(this.content)
+}
+Para.prototype.count = function() {
+    return countEntry(this.content)
+}
+Quote.prototype.count = function() {
+    const result = this.children
+        .reduce((accumulator, current) =>
+            accumulator += current.count()
+        , 0)
+    return result
+}
+Divider.prototype.count = () => 0
+List.prototype.count = function() {
+    const result = this.children.reduce((accumulator, current) => {
+        let temp
+        if (typeof current === "string") {
+            temp = accumulator + countEntry(current)
+        } else {
+            temp = accumulator + current.count()
+        }
+        return temp
+    }, 0)
+    return result
+}
+Table.prototype.count = function() {
+    const countRow = row => row
+        .reduce((accumulator, current) =>
+            accumulator += countEntry(current)
+        , 0)
+    const headerCount = countRow(this.headerCells)
+    const bodyCount   = this.bodyRows
+        .reduce((accumulator, row) =>
+            accumulator += countRow(row)
+        , 0)
+    return headerCount + bodyCount
+}
+
 export {
     Headline,
     Para,
@@ -11,7 +62,6 @@ export {
     List,
     Table,
 } from "../../../src/utils/markdown/node.js"
-
 
 // --- --- --- --- -
 // media nodes start
@@ -26,6 +76,8 @@ class MediaNode {
         mdText = mdText.substr(this.description.length + 2)
         this.source = getInterval(mdText, ")")
     }
+
+    count = () => 0
 
     static containerGenerator(content) {
         return el("div", content, {
@@ -132,9 +184,8 @@ export class CodeBlock {
             .replaceAll("<", "&lt;")
             .replaceAll(">", "&gt;")
     }
-    append(content) {
-        this.content += content
-    }
+
+    count = () => countWord(this.content)
     toHTML() {
         const isPlaintext = ["plaintext", "text", ""].includes(this.lang)
         
@@ -168,6 +219,13 @@ export class DetailsBlock {
         this.summary = summary
         this.content = mdResolver(content)
     }
+    count() {
+        const summaryCount = countEntry(this.summary)
+        const contentCount = this.content.reduce((accumulator, current) =>
+            accumulator += current.count()
+        , 0)
+        return summaryCount + contentCount
+    }
     toHTML() {
         const summaryEl  = el("summary", this.summary)
         const innerNodes = this.content.map(node => node.toHTML())
@@ -186,6 +244,8 @@ export class FormulaBlock {
         this.content = content
         this.description = description
     }
+
+    count = () => countWord(this.content)
     toHTML() {
         const filename = render(this.content, "katex")
         const formulaImage = el("img", "", {
@@ -210,6 +270,7 @@ export class IframeBlock {
         this.content = content
     }
 
+    count = () => this.content.length
     toHTML() {
         const iframeEl = el("iframe", this.description, {
             id: this.id,
@@ -258,6 +319,8 @@ export class ChartBlock {
                 this.#type = "Unknown"
         }
     }
+
+    count = () => 0
     toHTML() {
         if (this.#type === "Unknown") {
             return ""

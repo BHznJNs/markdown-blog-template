@@ -40,7 +40,3 @@ blockquote:hover::before {
     width: .375em;
     transform: translateX(-3px);
 }
-
-body:not(.dark) blockquote > .details .details-children {
-    border-color: todo;
-}

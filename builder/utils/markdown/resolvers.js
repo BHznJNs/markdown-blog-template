@@ -1,11 +1,13 @@
 import {
+    Quote,
     FormulaBlock, ChartBlock,
     DetailsBlock, CodeBlock,
     IframeBlock, Iframe,
  } from "./node.js"
+import mdResolver from "./index.js"
 import { blockResolverGenerator } from "../../../src/utils/markdown/resolvers/index.js"
 export {
-    listResolver, quoteResolver, tableResolver,
+    listResolver, tableResolver,
 } from "../../../src/utils/markdown/resolvers/index.js"
 
 export const chartResolver   = blockResolverGenerator("!!!", ChartBlock)
@@ -22,3 +24,22 @@ export function iframeResolver(firstLine, lines) {
     }
     return blockResolver(firstLine, lines)
 }
+
+export function quoteResolver(firstLine, lines) {
+    let quotedContent = firstLine.slice(2) + "\n"
+
+    while (lines.length) {
+        const l = lines.shift()
+
+        if (Quote.pattern(l)) {
+            quotedContent += l.slice(2) + "\n"
+        } else {
+            lines.unshift(l)
+            break
+        }
+    }
+    const children = mdResolver(quotedContent)
+    const node = new Quote(children)
+    return node
+}
+

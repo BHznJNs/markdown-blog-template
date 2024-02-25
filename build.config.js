@@ -25,7 +25,7 @@ export default {
      * the footer for this site, can be deleted if you do not need it
      * 站点的脚注，如果你不需要可以删除
      */
-    footer: "::Powered by [MarkdownBlogTemplate](https://github.com/BHznJNs/markdown-blog-template)::",
+    footer: "Powered by [MarkdownBlogTemplate](https://github.com/BHznJNs/markdown-blog-template)::",
 
     /**
      * language: String

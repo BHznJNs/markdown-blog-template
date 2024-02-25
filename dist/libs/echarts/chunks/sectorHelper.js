@@ -1,1 +1,1 @@
-import{j as r,o as a,aQ as n}from"./core.js";function o(o,u,e){var s=o.get("borderRadius");if(null==s)return e?{cornerRadius:0}:null;r(s)||(s=[s,s,s,s]);var t=Math.abs(u.r||0-u.r0||0);return{cornerRadius:a(s,(function(r){return n(r,t)}))}}export{o as g};
+import{d as r,m as n,bs as a}from"./index.js";function s(s,u,e){var t=s.get("borderRadius");if(null==t)return e?{cornerRadius:0}:null;r(t)||(t=[t,t,t,t]);var i=Math.abs(u.r||0-u.r0||0);return{cornerRadius:n(t,(function(r){return a(r,i)}))}}export{s as g};

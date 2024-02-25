@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
-import throttle from "../../src/utils/throttle.js"
-import { checkType } from "./util.js"
+import throttle from "../../../src/utils/throttle.js"
+import { checkType } from "../util.js"
 
 function doSomething() {
     return 1

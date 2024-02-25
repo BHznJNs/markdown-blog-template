@@ -1,4 +1,5 @@
 import el from "../dom/el.js"
+import countWord from "../countWord.js"
 import htmlEntityReplace from "../htmlEntityReplace.js"
 import getInterval from "./utils/getInterval.js"
 
@@ -32,6 +33,7 @@ class TextToken {
     constructor(content) {
         this.content = content
     }
+    count  = () => countWord(this.content)
     toHTML = () => el("text", this.content)
 }
 class KeyToken {
@@ -53,6 +55,7 @@ class KeyToken {
         }
     }
 
+    count = () => countEntry(this.content)
     toHTML() {
         if (this.className === "math" && typeof window === "undefined") {
             // for katex rendering in node.js
@@ -77,6 +80,7 @@ class LinkToken {
         this.address = address
     }
 
+    count = () => 0
     toHTML() {
         const displayContent = parseEntry(this.content)
         if (this.address.startsWith("http")) {
@@ -84,6 +88,13 @@ class LinkToken {
             return el("a", displayContent, {
                 href: this.address,
                 target: "_blank"
+            })
+        }
+
+        if (this.address.startsWith("//")) {
+            // relative link for some extra HTML files
+            return el("a", displayContent, {
+                href: this.address.slice(2),
             })
         }
 
@@ -99,6 +110,8 @@ class PhoneticToken {
         this.content  = content
         this.notation = notation
     }
+
+    count = () => countEntry(this.content)
     toHTML() {
         const ignoredLeftParenthesis = el("rp", "(")
         const ignoredRightParenthesis = el("rp", ")")
@@ -249,9 +262,19 @@ function parser(source) {
     return tokens
 }
 
-export default function parseEntry(source) {
+// --- --- --- --- --- ---
+
+export function countEntry(source) {
     const tokens = parser(source)
-    let resultHTML = tokens
+    const result = tokens.reduce((accumulator, current) =>
+        accumulator += current.count()
+    , 0)
+    return result
+}
+
+export function parseEntry(source) {
+    const tokens = parser(source)
+    const resultHTML = tokens
         .filter(token =>
             // remove empty TextToken
             !(token instanceof TextToken && !token.content.length))

@@ -1,5 +1,4 @@
-import mdResolver from "./index.js"
-import inlineResolver from "./inline.js"
+import { parseEntry } from "./inline.js"
 import el from "../dom/el.js"
 import languageSelector from "../languageSelector.js"
 import getInterval from "./utils/getInterval.js"
@@ -22,13 +21,14 @@ export class Headline {
 
         const rawContent = splited.slice(1).join(" ")
         this.tagName = "h" + numberSignCount
-        this.content = inlineResolver(rawContent)
+        this.content = rawContent
     }
     toHTML() {
         const options = this.id === undefined
             ? null
             : { id: this.id }
-        return el(this.tagName, this.content, options)
+        const parsedContent = parseEntry(this.content)
+        return el(this.tagName, parsedContent, options)
     }
 
     static pattern = source => source.match(/^(#+ )/)
@@ -41,7 +41,7 @@ export class Para {
         this.content = content.trimStart()
     }
     toHTML() {
-        const inline = inlineResolver(this.content)
+        const inline = parseEntry(this.content)
         return el(this.tagName, inline)
     }
 }
@@ -81,15 +81,14 @@ export class List {
     push = child => this.children.push(child)
 
     toHTML() {
-        const childrenHTML = []
-        for (const child of this.children) {
+        const childrenHTML = this.children.map(child => {
             if (typeof child === "string") {
-                const inline = inlineResolver(child)
-                childrenHTML.push(el("li", inline))
+                const inline = parseEntry(child)
+                return el("li", inline)
             } else {
-                childrenHTML.push(child.toHTML())
+                return child.toHTML()
             }
-        }
+        })
         return el(this.tagName, childrenHTML)
     }
 
@@ -120,7 +119,7 @@ export class Table {
     }
 
     #tableHeaderCell = content => el("th", content)
-    #tableBodyCell   = content => el("td", inlineResolver(content))
+    #tableBodyCell   = content => el("td", parseEntry(content))
     #tableHeaderRow  = row => el("tr", row.map(this.#tableHeaderCell))
     #tableBodyRow    = row => el("tr", row.map(this.#tableBodyCell))
 
@@ -268,9 +267,6 @@ export class CodeBlock {
         this.lang = lang
         this.content = content
     }
-    append(content) {
-        this.content += content
-    }
     toHTML() {
         const isPlaintext = ["plaintext", "text", ""].includes(this.lang)
         if (!isPlaintext) {
@@ -305,10 +301,10 @@ export class DetailsBlock {
 
     constructor(content, summary) {   
         this.summary = summary
-        this.content = mdResolver(content)
+        this.content = content
     }
     toHTML() {
-        const summaryEl = el("summary", this.summary)
+        const summaryEl = el("summary", parseEntry(this.summary))
         const detailsEl = el("details", summaryEl)
 
         const innerNodes = this.content

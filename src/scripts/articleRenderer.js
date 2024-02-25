@@ -10,6 +10,7 @@ import { Headline } from "../utils/markdown/node.js"
 import languageSelector from "../utils/languageSelector.js"
 import { scrollToPos } from "../utils/dom/scrollControl.js"
 import { allIframeLoaded, setIframeTheme } from "./iframeController.js"
+import { parseEntry } from "../utils/markdown/inline.js"
 
 const articleEl = document.querySelector("article")
 const emptyArticlePlaceHolder = languageSelector("空文章", "Empty Article")
@@ -26,7 +27,7 @@ function getHeadlines(structure) {
         .filter(node => node instanceof Headline)
         .map((node, index) => {
             const id = node.id = "headline-" + index
-            const content = node.content.map(el => el.cloneNode(true))
+            const content = parseEntry(node.content)
             return {
                 id, content,
                 level: node.tagName,

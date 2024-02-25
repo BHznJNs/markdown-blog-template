@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
-import debounce from "../../src/utils/debounce.js"
-import { checkType } from "./util.js"
+import debounce from "../../../src/utils/debounce.js"
+import { checkType } from "../util.js"
 
 let flag = 0
 function doSomething() {

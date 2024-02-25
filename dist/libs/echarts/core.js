@@ -1,1 +1,1 @@
-export{dQ as default,dO as importChart,dP as importComponent}from"./chunks/core.js";
+export{dO as default,dQ as importChart,dP as importComponent}from"./chunks/index.js";

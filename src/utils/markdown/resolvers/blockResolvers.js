@@ -1,3 +1,4 @@
+import mdResolver from "../index.js"
 import { ChartBlock, CodeBlock, DetailsBlock, FormulaBlock, Iframe, IframeBlock } from "../node.js"
 
 export function blockResolverGenerator(endSign, targetClass) {
@@ -20,14 +21,19 @@ export function blockResolverGenerator(endSign, targetClass) {
 
 export const codeResolver    = blockResolverGenerator("```", CodeBlock)
 export const chartResolver   = blockResolverGenerator("!!!", ChartBlock)
-export const detailsResolver = blockResolverGenerator(">>>", DetailsBlock)
 export const formulaResolver = blockResolverGenerator("$$$", FormulaBlock)
+export function detailsResolver(firstLine, lines) {
+    const resolver = blockResolverGenerator(">>>", DetailsBlock)
+    const node = resolver(firstLine, lines)
+    node.content = mdResolver(node.content)
+    return node
+}
 export function iframeResolver(firstLine, lines) {
-    const blockResolver = blockResolverGenerator("@@@", IframeBlock)
+    const resolver = blockResolverGenerator("@@@", IframeBlock)
 
     if (!firstLine.startsWith("@@@")) {
         // link to out resource
         return new Iframe(firstLine)
     }
-    return blockResolver(firstLine, lines)
+    return resolver(firstLine, lines)
 }

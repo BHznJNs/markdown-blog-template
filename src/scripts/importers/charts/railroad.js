@@ -5,7 +5,7 @@ import config from "../../../../build.config.js"
 let railroadRenderOptions = null
 const { railroadOptions } = config
 const ASCIIPattern = /[\x00-\x7F]/
-const CJKPattern   = /['"]([^'"]*[\u3400-\u9fff\uac00-\ud7ff\uf900-\ufaff\u3040-\u309f\u30a0-\u30ff]+[^'"]*)['"]/g
+const CJKPattern   = /['"]([^'"]*[/\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]+[^'"]*)['"]/gu
 
 class RailroadImporter extends ChartImporter {
     _targetElList = () => document.querySelectorAll(".railroad-container")

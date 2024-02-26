@@ -25,7 +25,7 @@ Since RSS feed subscription requires the pre-rendered static HTML files, and som
 
 If you don't have a requirement for RSS publishing and subscription, or if you do but don't utilize the functionalities of equations, charts, or QR codes in your writing, to reduce the disk space usage of dependency libraries, please use the command below to install:
 ```bash
-npm install express crypto-js
+npm install express utimes crypto-js
 ```
 
 If you have a requirement for RSS publishing and subscription, and need to utilize the functionalities of equations, charts, and QR codes in your writing, please use the command below to install:

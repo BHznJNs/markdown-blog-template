@@ -1,24 +1,27 @@
 {
   "name": "markdown-blog-template",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://bhznjns.github.io/markdown-blog-template/",
   "repository": "https://github.com/BHznJNs/markdown-blog-template/",
   "type": "module",
   "scripts": {
     "preview": "node ./builder/scripts/preview.js",
     "count": "node ./builder/scripts/count/index.js",
+    "backup": "node ./builder/scripts/backup.js",
+    "restore": "node ./builder/scripts/restore.js",
     "compress": "rollup --config builder/rollup.config.js",
     "build": "node ./builder/index.js",
     "test": "mocha ./builder/test/*.test.js ./builder/test/*/*.test.js"
   },
   "author": "BHznJNs",
-  "license": "CC-BY-4.0",
+  "license": "GPL-3.0",
   "dependencies": {
     "crypto-js": "^4.2.0",
     "echarts": "^5.4.3",
     "electron": "^28.2.0",
     "express": "^4.18.2",
-    "html2canvas": "^1.4.1"
+    "html2canvas": "^1.4.1",
+    "utimes": "^5.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",

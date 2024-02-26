@@ -1,4 +1,4 @@
-# Deploy
+# Deployment
 
 After you viewed the front UI successfully, you can start to deploy this project.
 

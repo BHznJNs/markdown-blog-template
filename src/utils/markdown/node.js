@@ -47,20 +47,77 @@ export class Para {
 }
 
 export class Quote {
-    tagName = "blockquote"
     children = []
+    title    = ""
+    type     = Quote.NormalTypeEnum
 
     constructor(children) {
-        this.children = children
+        const isAlertQuote = children[0] instanceof Para
+            && Quote.alertPattern(children[0].content)
+
+        if (!isAlertQuote) {
+            this.children = children
+            return
+        }
+
+        let defaultTitle
+        const titleLine  = children[0].content
+        const targetType = getInterval(titleLine.slice(1), "]")
+        switch (targetType.toLowerCase()) {
+            case "note": case "笔记":
+                this.type = Quote.NoteTypeEnum
+                defaultTitle = languageSelector("笔记", "Note")
+                break
+            case "tip": case "提示":
+                this.type = Quote.TipTypeEnum
+                defaultTitle = languageSelector("提示", "Tip")
+                break
+            case "important": case "重要":
+                this.type = Quote.ImportantTypeEnum
+                defaultTitle = languageSelector("重要", "Important")
+                break
+            case "warning": case "注意":
+                this.type = Quote.warningTypeEnum
+                defaultTitle = languageSelector("注意", "Warning")
+                break
+            case "caution": case "警告":
+                this.type = Quote.CautionTypeEnum
+                defaultTitle = languageSelector("警告", "Caution")
+                break
+        }
+        const titleString = titleLine
+            .slice(targetType.length + 2)
+            .trimStart()
+        this.title = titleString || defaultTitle
+        this.children = children.slice(1)
     }
     toHTML() {
+        if (this.type === Quote.NormalTypeEnum) {
+            const innerNodes = this.children
+                .map(node => node.toHTML())
+            return el("blockquote", innerNodes)
+        }
+        const headline = el("p", this.title, {
+            "class": "alert-title"
+        })
         const innerNodes = this.children
             .map(node => node.toHTML())
-        return el(this.tagName, innerNodes)
+        return el("blockquote", [headline].concat(innerNodes), {
+            "class": `alert ${this.type.description}`
+        })
     }
 
     static pattern = source =>
         (source === ">") || source.startsWith("> ")
+    static alertPattern = source =>
+        /^\[(.*)+\].*/.test(source)
+
+    static NormalTypeEnum    = Symbol("normal")
+    static NoteTypeEnum      = Symbol("note")
+    static TipTypeEnum       = Symbol("tip")
+    static ImportantTypeEnum = Symbol("important")
+    static warningTypeEnum   = Symbol("warning")
+    static CautionTypeEnum   = Symbol("caution")
 }
 
 export class Divider {
@@ -73,12 +130,10 @@ export class List {
     children = []
 
     constructor(content) {
-        this.isOrdered = Boolean(List.orderedPattern(content))
+        this.isOrdered = List.orderedPattern(content)
         this.tagName   = (this.isOrdered) ? "ol" : "ul"
         this.children  = [List.getContent(content, this.isOrdered)]
     }
-
-    push = child => this.children.push(child)
 
     toHTML() {
         const childrenHTML = this.children.map(child => {
@@ -92,20 +147,42 @@ export class List {
         return el(this.tagName, childrenHTML)
     }
 
-    static unorderedPattern = (source) => Boolean(source.match(/^([\s\t]*[+-]+ )/))
-    static orderedPattern = (source) => Boolean(source.match(/^([\s\t]*[0-9]+. )/))
-
-    static isListPattern = (source) =>
-        List.orderedPattern(source) || List.unorderedPattern(source)
+    static orderedPattern   = source => Boolean(source.match(/^([\s\t]*[0-9]+. )/))
+    static unorderedPattern = source => Boolean(source.match(/^([\s\t]*[+-] )/))
+    static taskListPattern  = source => source.startsWith("- [ ] ") || source.startsWith("- [x] ")
+    static isListPattern    = source => List.orderedPattern(source) || List.unorderedPattern(source)
 
     static getContent(line, isOrdered) {
         if (isOrdered) {
             // "1. ..." => "..."
             return line.match(/(?<=^([\s\t]*[0-9]+. )).+$/g)[0]
-        } else {
-            // "- ..." => "..."
+        } else if (this.taskListPattern(line)) {
+            // "- [ ] ..." | "- [x] ..." => "..."
+            return new TaskListItem(line.slice(6), line.slice(0, 6))
+        } else if (this.unorderedPattern(line)) {
+            // "- ..." | "+ ..." => "..."
             return line.match(/(?<=^([\s\t]*[+-]+ )).+$/g)[0]
+        } else {
+            throw new Error("Unexpected list item: " + line)
         }
+    }
+}
+
+class TaskListItem {
+    constructor(content, prefix) {
+        this.content = content
+        this.isChecked = prefix[3] === "x"
+    }
+    toHTML() {
+        const inputEl = el("input", "", {
+            type: "checkbox",
+            checked: this.isChecked ? true : undefined,
+        })
+        const contentEl = el("text", this.content)
+        const listItemEl = el("li", [inputEl, contentEl], {
+            "class": "task-list-item"
+        })
+        return listItemEl
     }
 }
 
@@ -174,7 +251,7 @@ class MediaNode {
 
     static srcUrlResolver(rawUrl) {
         let actualUrl
-        if (rawUrl.startsWith("http")) {
+        if (rawUrl.startsWith("http") || rawUrl.startsWith("data")) {
             actualUrl = rawUrl
         } else {
             const hash = location.hash.slice(1)

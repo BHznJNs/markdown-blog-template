@@ -5,6 +5,12 @@
     }
 }
 blockquote {
+    --note-symbol: "📓";
+    --important-symbol: "❗";
+    --tip-symbol: "💡";
+    --warning-symbol: "⚠️";
+    --caution-symbol: "🚫";
+
     position: relative;
     padding: 0.1px 1rem;
     margin-right: 1rem;
@@ -39,4 +45,87 @@ blockquote::before {
 blockquote:hover::before {
     width: .375em;
     transform: translateX(-3px);
+}
+
+/* --- --- --- --- --- --- */
+
+body:not(.dark) blockquote {
+    --quote-tx-color: #4a4a4a;
+    --quote-bg-color: #f5f5f5;
+
+    --note-tx-color: #1976D2;
+    --note-bg-color: #E3F2FD;
+    --important-tx-color: #303F9F;
+    --important-bg-color: #E8EAF6;
+    --tip-tx-color: #689F38;
+    --tip-bg-color: #F1F8E9;
+    --warning-tx-color: #F57C00;
+    --warning-bg-color: #FFF8E1;
+    --caution-tx-color: #E53935;
+    --caution-bg-color: #FFEBEE;
+}
+
+body.dark blockquote {
+    --quote-tx-color: #ececec;
+    --quote-bg-color: #3e3e3e;
+    --bg-color: var(--mixed-bg-color, var(--quote-bg-color)) !important;
+
+    --note-tx-color: #42A5F5;
+    --note-bg-color: #0D47A1;
+    --important-tx-color: #B39DDB;
+    --important-bg-color: #1A237E;
+    --tip-tx-color: #8BC34A;
+    --tip-bg-color: #33691E;
+    --warning-tx-color: #FFC107;
+    --warning-bg-color: #F57F17;
+    --caution-tx-color: #F44336;
+    --caution-bg-color: #B71C1C;
+}
+
+/* alert styles */
+
+blockquote.note {
+    --alert-symbol: var(--note-symbol);
+    --tx-color: var(--note-tx-color);
+    --bg-color: var(--note-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--note-bg-color), black);
+}
+blockquote.important {
+    --alert-symbol: var(--important-symbol);
+    --tx-color: var(--important-tx-color);
+    --bg-color: var(--important-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--important-bg-color), black);
+}
+blockquote.tip {
+    --alert-symbol: var(--tip-symbol);
+    --tx-color: var(--tip-tx-color);
+    --bg-color: var(--tip-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--tip-bg-color), black);
+}
+blockquote.warning {
+    --alert-symbol: var(--warning-symbol);
+    --tx-color: var(--warning-tx-color);
+    --bg-color: var(--warning-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--warning-bg-color), black);
+}
+blockquote.caution {
+    --alert-symbol: var(--caution-symbol);
+    --tx-color: var(--caution-tx-color);
+    --bg-color: var(--caution-bg-color);
+    --mixed-bg-color: color-mix(in srgb, var(--caution-bg-color), black);
+}
+
+blockquote.alert {
+    background-color: var(--bg-color);
+}
+blockquote.alert::before {
+    background-color: var(--tx-color)
+}
+blockquote.alert p.alert-title {
+    color: var(--tx-color);
+    font-size: 1.125em;
+}
+blockquote.alert p.alert-title::before {
+    content: var(--alert-symbol);
+    margin-right: .2em;
 }

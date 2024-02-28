@@ -59,19 +59,22 @@ body.dark {
 label {
     user-select: none;
 }
-input {
+
+input[type=text],
+input[type=number] {
     width: 3em;
     height: 32px;
     padding: 0 6px;
     overflow: hidden;
     color: var(--default-tx-color);
-    background-color: var(--quote-bg-color);
+    background-color: var(--dimmed-bg-color);
     font-size: 16px;
     border: none;
     border-radius: 4px;
     outline: none;
 }
-label input {
+label input[type=text],
+label input[type=number] {
     margin-left: 4px;
 }
 

@@ -64,3 +64,15 @@ ol > li::before {
     font-weight: normal;
     transition: inherit;
 }
+
+li.task-list-item {
+    list-style: none;
+    margin-left: -1.6em;
+}
+li.task-list-item input[type=checkbox] {
+    width: 1em;
+    height: 1em;
+    margin: 0 .6em .2em 0;
+    vertical-align: middle;
+    font-size: inherit;
+}

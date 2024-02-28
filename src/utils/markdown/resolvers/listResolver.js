@@ -11,9 +11,9 @@ export default function listResolver(currentLine, lines) {
         const isNextOrdered = List.orderedPattern(nextLine)
 
         if (nextIndent > currentIndent) {
-            currentNode.push(listResolver(nextLine, lines))
+            currentNode.children.push(listResolver(nextLine, lines))
         } else if (nextIndent === currentIndent && isNextOrdered === currentNode.isOrdered) {
-            currentNode.push(List.getContent(nextLine, isNextOrdered))
+            currentNode.children.push(List.getContent(nextLine, isNextOrdered))
         } else {
             lines.unshift(nextLine)
             break

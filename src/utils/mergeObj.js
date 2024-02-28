@@ -16,7 +16,14 @@ function mergeObj(destObj={}, srcObj={}) {
         }
         if (!isKeyInDest) {
             if (isSrcKeyObj) {
-                destObj[key] = structuredClone(srcObj[key])
+                let clonedObj
+                if (typeof structuredClone !== "undefined") {
+                    // if browser supports `structuredClone`
+                    clonedObj = structuredClone(srcObj[key])
+                } else {
+                    clonedObj = JSON.parse(JSON.stringify(srcObj[key]))
+                }
+                destObj[key] = clonedObj
             } else {
                 destObj[key] = srcObj[key]
             }

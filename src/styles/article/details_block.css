@@ -64,6 +64,7 @@ div.details details summary {
     outline: none;
     user-select: none;
     cursor: pointer;
+    transition: color .3s .15s;
 }
 div.details details summary:focus-visible {
     outline: auto;

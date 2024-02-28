@@ -31,7 +31,7 @@ export class Headline {
         return el(this.tagName, parsedContent, options)
     }
 
-    static pattern = source => source.match(/^(#+ )/)
+    static pattern = source => /^(#+ )/.test(source)
 }
 
 export class Para {
@@ -147,9 +147,9 @@ export class List {
         return el(this.tagName, childrenHTML)
     }
 
-    static orderedPattern   = source => Boolean(source.match(/^([\s\t]*[0-9]+. )/))
-    static unorderedPattern = source => Boolean(source.match(/^([\s\t]*[+-] )/))
-    static taskListPattern  = source => source.startsWith("- [ ] ") || source.startsWith("- [x] ")
+    static orderedPattern   = source => /^([\s\t]*[0-9]+. )/.test(source)
+    static unorderedPattern = source => /^([\s\t]*[+-] )/.test(source)
+    static taskListPattern  = source => /^[\s\t]*- \[( |x|\*)\] /.test(source)
     static isListPattern    = source => List.orderedPattern(source) || List.unorderedPattern(source)
 
     static getContent(line, isOrdered) {
@@ -158,7 +158,8 @@ export class List {
             return line.match(/(?<=^([\s\t]*[0-9]+. )).+$/g)[0]
         } else if (this.taskListPattern(line)) {
             // "- [ ] ..." | "- [x] ..." => "..."
-            return new TaskListItem(line.slice(6), line.slice(0, 6))
+            const trimedLine = line.trimStart()
+            return new TaskListItem(trimedLine.slice(6), trimedLine.slice(0, 6))
         } else if (this.unorderedPattern(line)) {
             // "- ..." | "+ ..." => "..."
             return line.match(/(?<=^([\s\t]*[+-]+ )).+$/g)[0]
@@ -171,7 +172,7 @@ export class List {
 class TaskListItem {
     constructor(content, prefix) {
         this.content = content
-        this.isChecked = prefix[3] === "x"
+        this.isChecked = prefix[3] === "x" || prefix[3] === "*"
     }
     toHTML() {
         const inputEl = el("input", "", {

@@ -66,6 +66,52 @@ $$e = mc^2$$
 ```
 > Quoted content
 
+### 强调
+
+Create a emphasis block with ``[Emphasis Type]+Emphasis Title`` for the first line.
+
+> [tip]
+> The emphasis will use the default title if the emphasis title is left blank.
+
+The emphasis type is as follows (case insensitive):
+- note | 笔记
+- important | 重要
+- tip | 提示
+- warning | 注意
+- caution | 警告
+
+```markdown
+> [note] Note
+> Note content...
+
+> [important] important
+> Important content...
+
+> [tip]
+> Tips content...
+
+> [warning]
+> Warning content...
+
+> [Caution] Caution
+> Caution content...
+```
+
+> [note] Note
+> Note content...
+
+> [important] important
+> Important content...
+
+> [tip]
+> Tips content...
+
+> [warning]
+> Warning content...
+
+> [Caution] Caution
+> Caution content...
+
 - - -
 
 ## Links
@@ -143,6 +189,23 @@ Nested Lists:
 2. Vegetables
     - Potato
     - Carrots
+
+Task List:
+```markdown
+- [ ] Unfinished task
+- [x] Finished task
+- [*] Finished task
+    - [ ] Unfinished task
+    - [x] Finished task
+    - [*] Finished task
+```
+- [ ] Unfinished task
+- [x] Finished task
+- [*] Finished task
+    - [ ] Unfinished task
+    - [x] Finished task
+    - [*] Finished task
+
 
 - - -
 

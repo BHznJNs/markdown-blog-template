@@ -19,7 +19,7 @@ const createWindow = () => {
 const loadPage = pagename => {
     currentPageName = pagename
     win.loadFile(pagename + ".html")
-    win.webContents.on("did-finish-load", () => {
+    win.webContents.once("did-finish-load", () => {
         process.send({ msg: "page-ready" })
     })
 }

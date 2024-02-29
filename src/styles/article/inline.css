@@ -36,7 +36,7 @@ h6 {
 
 code:not(pre code) {
     /* inline code style */
-    padding: 2px 8px;
+    padding: 1px 8px;
     margin: 0 4px;
     color: var(--default-inline-code-color);
     background-color: var(--default-inline-code-bg-color);

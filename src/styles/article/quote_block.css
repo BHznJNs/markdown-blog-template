@@ -77,12 +77,17 @@ body.dark blockquote {
     --tip-tx-color: #8BC34A;
     --tip-bg-color: #33691E;
     --warning-tx-color: #FFC107;
-    --warning-bg-color: #F57F17;
+    --warning-bg-color: #eb730a;
     --caution-tx-color: #F44336;
     --caution-bg-color: #B71C1C;
 }
 
 /* alert styles */
+
+body:not(.dark) blockquote.alert {
+    --hovered-bg-color: hsla(0, 0%, 73%, 0.2);
+    --default-inline-code-bg-color: hsla(0, 0%, 73%, 0.4);
+}
 
 blockquote.note {
     --alert-symbol: var(--note-symbol);

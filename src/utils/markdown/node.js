@@ -1,4 +1,4 @@
-import { parseEntry } from "./inline.js"
+import { countEntry, parseEntry } from "./inline.js"
 import el from "../dom/el.js"
 import languageSelector from "../languageSelector.js"
 import getInterval from "./utils/getInterval.js"
@@ -173,6 +173,9 @@ class TaskListItem {
     constructor(content, prefix) {
         this.content = content
         this.isChecked = prefix[3] === "x" || prefix[3] === "*"
+    }
+    count() {
+        return countEntry(this.content)
     }
     toHTML() {
         const inputEl = el("input", "", {

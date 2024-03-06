@@ -118,6 +118,7 @@ export default [
             }),
             componentStyleResolver("fab"),
             componentStyleResolver("catalog"),
+            componentStyleResolver("skeleton"),
             postcss({
                 include: [
                     "src/styles/*.css",

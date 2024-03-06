@@ -1,11 +1,15 @@
 import "./styles/style.css"
+import "./styles/components/skeleton.css"
 
 import "./scripts/mainManager.js"
 import config from "../build.config.js"
 import pageController from "./components/paging.js"
-import keydownEvent from "./utils/dom/keydownEvent.js"
 import pathManager from "./scripts/pathManager"
 import { setIframeTheme } from "./scripts/iframeController.js"
+import importStyle from "./scripts/importers/style.js"
+import keydownEvent from "./utils/dom/keydownEvent.js"
+
+importStyle("dist/chunks/skeleton.min.css")
 
 // import optional components
 if (config.enableFab) {

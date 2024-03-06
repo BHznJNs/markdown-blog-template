@@ -63,6 +63,7 @@ export default function indexRender(indexing, itemResolver) {
     // --- --- --- --- --- ---
 
     articleEl.innerHTML = ""
+    articleEl.style.display = "none"
     mainEl.style.display = "block"
     scrollToTop()
 }

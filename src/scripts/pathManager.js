@@ -37,9 +37,10 @@ export async function hashChangeEvent(e) {
     } else
     if (pathManager.isIn.article()) {
         // open article
+        mainEl.style.display = "none"
+        articleEl.style.display = "block"
         const articleContent = await fetchMD("./" + hash)
         if (!articleContent) return
-        mainEl.style.display = "none"
         articleRender(articleEl, articleContent)
     } else {
         pathManager.homepage()

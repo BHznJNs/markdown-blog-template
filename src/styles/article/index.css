@@ -23,10 +23,6 @@ article {
                 background .6s;
 }
 
-article:empty {
-    display: none !important;
-}
-
 article.with-catalog {
     width: calc(100vw - 360px - var(--gap-from-catalog));
     min-width: calc(64vw - var(--gap-from-catalog));

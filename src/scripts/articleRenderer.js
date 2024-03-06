@@ -62,7 +62,7 @@ export default function articleRender(articleEl, mdText) {
     resultNodes.forEach(el => articleEl.appendChild(el))
     // set iframes' theme after all loaded
     allIframeLoaded().then(setIframeTheme)
-    articleEl.style.display = "block"
+
     articleEl.querySelectorAll("[tabindex='0']").forEach((el) => {
         el.onkeydown = keydownEvent(el)
     })

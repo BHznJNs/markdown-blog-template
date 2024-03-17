@@ -1,6 +1,7 @@
 @import url(./color.css);
 @import url(./navigator.css);
 @import url(./main.css);
+@import url(./footer.css);
 @import url(./article/index.css);
 @import url(./components/index.css);
 
@@ -62,7 +63,7 @@ label {
 
 input[type=text],
 input[type=number] {
-    width: 3em;
+    width: 5em;
     height: 32px;
     padding: 0 6px;
     overflow: hidden;
@@ -72,15 +73,9 @@ input[type=number] {
     border: none;
     border-radius: 4px;
     outline: none;
+    box-sizing: border-box;
 }
 label input[type=text],
 label input[type=number] {
     margin-left: 4px;
-}
-
-footer {
-    padding: 0 6px;
-    margin-bottom: 48px;
-    text-align: center;
-    color: var(--default-tx-color);
 }

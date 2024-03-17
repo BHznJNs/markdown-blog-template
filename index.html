@@ -23,6 +23,7 @@ if (darkModeMediaQuery) {
     darkModeSwitcher()
 }
 </script>
+<search-box></search-box>
 <fab-icon></fab-icon>
 <nav>
     <a
@@ -35,6 +36,16 @@ if (darkModeMediaQuery) {
         <span class="underline-target">Home</span>
     </a>
     <span>
+        <button
+            id="search-btn"
+            class="icon-btn"
+            title="Search"
+        >
+            <img
+                src="./dist/imgs/search.svg"
+                alt="Search"
+            >
+        </button>
 
         <span>
             <span
@@ -73,8 +84,10 @@ if (darkModeMediaQuery) {
     <ul id="article-list"></ul>
     <paging-view></paging-view>
 </main>
+<div id="article-container">
 <article-catalog></article-catalog>
 <article style="display: none;"></article>
+</div>
 <footer><p>Powered by <a href="https://github.com/BHznJNs/markdown-blog-template" target="_blank">MarkdownBlogTemplate</a></p></footer>
 </body>
 </html>

@@ -14,19 +14,28 @@ const patternList = [
     numberPattern,
 ]
 
+export function tokenize(para="") {
+    if (para.length === 0) {
+        return []
+    }
+
+    const tokenList = patternList
+        .map(pattern => {
+            const matched = para.match(pattern)
+            return matched || []
+        })
+        .reduce((accumulator, current) =>
+            accumulator.concat(current)
+        , [])
+
+    return tokenList
+}
+
 export default function countWord(para="") {
     if (para.length === 0) {
         return 0
     }
 
-    const totalCount = patternList
-        .map(pattern => {
-            const matched = para.match(pattern)
-            const count   = matched !== null ? matched.length : 0
-            return count
-        })
-        .reduce((accumulator, current) =>
-            accumulator += current)
-    
-    return totalCount
+    const tokenList  = tokenize(para)
+    return tokenList.length
 }

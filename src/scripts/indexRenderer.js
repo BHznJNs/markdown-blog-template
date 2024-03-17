@@ -48,12 +48,12 @@ export default function indexRender(indexing, itemResolver) {
     }
 
     // reset articleList content
-    articleList.innerHTML = ""
+    const fragment = document.createDocumentFragment()
     indexing.content
         .map(itemResolver)
-        .forEach(el =>
-            articleList.appendChild(el)
-        )
+        .forEach(el => fragment.appendChild(el))
+    articleList.innerHTML = ""
+    articleList.appendChild(fragment)
 
     // set keyboard event
     articleList.querySelectorAll("[tabindex='0']").forEach((el) => {

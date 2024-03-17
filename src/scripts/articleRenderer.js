@@ -12,15 +12,7 @@ import { scrollToPos } from "../utils/dom/scrollControl.js"
 import { allIframeLoaded, setIframeTheme } from "./iframeController.js"
 import { parseEntry } from "../utils/markdown/inline.js"
 
-const articleEl = document.querySelector("article")
 const emptyArticlePlaceHolder = languageSelector("空文章", "Empty Article")
-
-eventbus.on("catalog-toggle", () => {
-    articleEl.classList.toggle("with-catalog")
-})
-eventbus.on("catalog-closed", () => {
-    articleEl.classList.remove("with-catalog")
-})
 
 function getHeadlines(structure) {
     return structure
@@ -58,8 +50,11 @@ export default function articleRender(articleEl, mdText) {
 
     // --- --- --- --- --- ---
 
+    const fragment = document.createDocumentFragment()
+    resultNodes.forEach(el => fragment.appendChild(el))
     articleEl.innerHTML = ""
-    resultNodes.forEach(el => articleEl.appendChild(el))
+    articleEl.appendChild(fragment)
+
     // set iframes' theme after all loaded
     allIframeLoaded().then(setIframeTheme)
 

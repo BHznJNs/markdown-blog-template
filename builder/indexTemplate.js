@@ -41,6 +41,17 @@ export const navigator = `\
         <span class="underline-target">${languageSelector("主页", "Home")}</span>
     </a>
     <span>
+${(config.enableSearch) ? `\
+        <button
+            id="search-btn"
+            class="icon-btn"
+            title="${languageSelector("搜索", "Search")}"
+        >
+            <img
+                src="./dist/imgs/search.svg"
+                alt="${languageSelector("搜索", "Search")}"
+            >
+        </button>` : ""}
 ${(config.enableRSS) ? `\
         <a
             id="rss-icon"
@@ -101,6 +112,15 @@ ${config.enableNewest ? `\
     <paging-view></paging-view>
 </main>`
 
+const article = `\
+<div id="article-container">
+${config.enableCatalog
+    ? "<article-catalog></article-catalog>"
+    : ""
+}
+<article style="display: none;"></article>
+</div>`
+
 export const footer = config.footer
     ? `<footer>${
         renderer(config.footer)
@@ -118,17 +138,17 @@ ${header}
 <body>
 <script src="./dist/index.min.js" type="module" defer></script>
 ${inlineDarkmodeSwitcherScript}
+${config.enableSearch
+    ? "<search-box></search-box>"
+    : ""
+}
 ${config.enableFab
     ? "<fab-icon></fab-icon>"
     : ""
 }
 ${navigator}
 ${main}
-${config.enableCatalog
-    ? "<article-catalog></article-catalog>"
-    : ""
-}
-<article style="display: none;"></article>
+${article}
 ${footer}
 </body>
 </html>`

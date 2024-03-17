@@ -77,6 +77,20 @@ export default {
     newestIgnoreDir: [/* directories in `static`*/],
 
     /**
+     * enableSearch: Boolean
+     * used to enable / disable the Search feature
+     * 用来启用/禁用搜索功能
+     */
+    enableSearch: true,
+
+    /**
+     * searchPageThreshold: Number
+     * used to set the paging threshold for the search index, larger to set less page and slower index loading
+     * 用来设置搜索索引的分页阈值，越大分页越少且索引加载越慢
+     */
+    searchPageThreshold: 30000,
+
+    /**
      * pageCapacity: Number
      * defined the amount of the items in every page
      * 定义每一页展示的博文数

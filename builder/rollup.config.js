@@ -39,6 +39,7 @@ export default [
             /libs\/frappe-gantt/,
             /libs\/railroad-diagrams/,
             /libs\/qrcode-svg/,
+            /libs\/flexsearch/,
         ],
         plugins: [
             terser(),
@@ -113,10 +114,15 @@ export default [
                     { /* qrcode-svg */
                         src: "src/libs/qrcode-svg/qrcode.min.js",
                         dest: "dist/libs/qrcode-svg/"
+                    },
+                    { /* flexsearch */
+                        src: "src/libs/flexsearch/flexsearch.bundle.module.min.js",
+                        dest: "dist/libs/flexsearch/"
                     }
                 ],
             }),
             componentStyleResolver("fab"),
+            componentStyleResolver("searchBox"),
             componentStyleResolver("catalog"),
             componentStyleResolver("skeleton"),
             postcss({

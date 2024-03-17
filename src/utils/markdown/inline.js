@@ -272,6 +272,23 @@ export function countEntry(source) {
     return result
 }
 
+export function getRawContent(source) {
+    const tokens = parser(source)
+    const resultContent = []
+
+    for (const token of tokens) {
+        if (token instanceof KeyToken && token.className === "math") {
+            continue
+        }
+        if (token instanceof LinkToken) {
+            continue
+        }
+        resultContent.push(token.content)
+    }
+
+    return resultContent.join("")
+}
+
 export function parseEntry(source) {
     const tokens = parser(source)
     const resultHTML = tokens

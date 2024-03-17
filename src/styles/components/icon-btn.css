@@ -9,16 +9,26 @@
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
+    outline: none;
     text-decoration: none !important;
     transition: background .3s,
                 border-color .3s,
-                box-shadow .3s;
+                box-shadow .3s,
+                opacity .3s;
 }
 .icon-btn:hover {
     border-color: var(--hovered-bg-color);
     background-color: var(--hovered-bg-color);
     box-shadow: var(--shadow-md-1);
 }
+.icon-btn:focus-visible {
+    border-color: var(--default-tx-color);
+}
+.icon-btn:disabled {
+    pointer-events: none;
+    opacity: .6;
+}
+
 .dark .icon-btn {
     border-width: 3px;
 }

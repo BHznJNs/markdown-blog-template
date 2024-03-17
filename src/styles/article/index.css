@@ -8,28 +8,38 @@
 @import url(./quote_block.css);
 
 article {
-    --gap-from-catalog: 2rem;
-
-    margin: 2rem var(--page-horizonal-padding) 4rem;
+    min-width: 0;
+    margin: 0 var(--page-horizonal-padding);
     padding: 1rem 2rem;
     border-radius: 1rem;
     color: var(--default-tx-color);
     background-color: var(--default-bg-color);
     box-shadow: var(--shadow-lg);
     box-sizing: border-box;
-    transition: margin .45s,
+    transition: margin-right .3s,
                 border-radius .3s .2s,
                 opacity .45s,
                 background .6s;
 }
 
-article.with-catalog {
-    width: calc(100vw - 360px - var(--gap-from-catalog));
-    min-width: calc(64vw - var(--gap-from-catalog));
-    margin-right: 0;
-    margin-left: auto;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+#article-container {
+    width: 100%;
+}
+@media screen and (min-width: 768px) {
+    #article-container {
+        display: grid;
+        grid-template-columns: 0 1fr;
+    }
+    #article-container.with-catalog {
+        display: grid;
+        grid-template-columns: min(360px, 36vw) 1fr;
+        gap: 2rem;
+    }
+    #article-container.with-catalog article {
+        margin: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -39,7 +49,7 @@ article.with-catalog {
         border-radius: .75rem;
         box-shadow: var(--shadow-md-2);
     }
-    article.with-catalog {
+    #article-container.with-catalog article {
         width: auto;
         margin-left: var(--page-horizonal-padding);
         margin-right: var(--page-horizonal-padding);

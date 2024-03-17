@@ -2,15 +2,23 @@ nav {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin: 1rem var(--page-horizonal-padding) 0;
+    margin: 1rem var(--page-horizonal-padding) 2rem;
     padding: 0 8px;
     user-select: none;
 }
 
-.dark #homepage img, .dark #rss-icon img {
+body.dark #homepage img,
+body.dark #rss-icon img,
+body.dark #search-btn img {
     filter: invert(100%);
 }
+#rss-icon, #search-btn {
+    margin-right: 6px;
+}
 
+nav .icon-btn {
+    box-sizing: content-box;
+}
 nav .icon-btn img {
     aspect-ratio: 1;
 }
@@ -24,9 +32,6 @@ nav .icon-btn img {
 #homepage span {
     font-size: 1.2rem;
     font-weight: bold;
-}
-#rss-icon {
-    margin-right: 6px;
 }
 
 nav a::before {

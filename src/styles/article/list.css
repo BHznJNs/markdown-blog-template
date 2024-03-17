@@ -8,6 +8,7 @@ li {
 
 ol {
     padding-left: 1em;
+    list-style: none;
     overflow-wrap: break-word;
 }
 ul {
@@ -39,10 +40,6 @@ ul > li:hover::marker {
     color: var(--deep-bd-color);
 }
 
-ol {
-    list-style: none;
-    overflow-x: hidden;
-}
 ol > li {
     counter-increment: list-item;
     margin-bottom: 0;

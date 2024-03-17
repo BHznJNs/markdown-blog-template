@@ -9,6 +9,7 @@ const necessaryResources = [
 ]
 const optionalResources = [
     /\/dist\/libs\//,
+    "./dist/imgs/search.svg",
     "./dist/imgs/fab-switch.svg",
     "./dist/imgs/fab-catalog.svg",
     "./dist/imgs/fab-back-to-top.svg",

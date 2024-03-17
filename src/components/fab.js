@@ -55,8 +55,20 @@ class FabIcon extends HTMLElement {
         this.classList.add("unseen")
         this.#appendEvent()
         this.style.setProperty("--fab-item-count", subFabItem.length + 1)
+
+        const fragment = document.createDocumentFragment()
         for (const el of [switcher].concat(subFabItem)) {
-            this.appendChild(el)
+            fragment.appendChild(el)
+        }
+        this.appendChild(fragment)
+        this.toggleCallback()
+    }
+
+    toggleCallback() {
+        const force = !this.classList.contains("hidden")
+        const tabIndex = force ? 0 : -1
+        for (const btn of Object.values(this.#subItems)) {
+            btn.tabIndex = tabIndex
         }
     }
 
@@ -64,6 +76,7 @@ class FabIcon extends HTMLElement {
         this.#switcher.addEventListener("click", () => {
             this.classList.remove("unseen")
             this.classList.toggle("hidden")
+            this.toggleCallback()
         })
         this.#subItems.backToParent.addEventListener("click", () => {
             pathManager.jumpTo(pathManager.parent())

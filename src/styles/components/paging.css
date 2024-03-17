@@ -11,10 +11,6 @@ paging-view .icon-btn {
     height: 2.4rem;
     font-weight: bold;
 }
-paging-view .icon-btn:disabled {
-    pointer-events: none;
-    opacity: .6;
-}
 paging-view .icon-btn:hover span {
     transform: translateY(-2px);
 }

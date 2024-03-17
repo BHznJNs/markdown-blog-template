@@ -8,6 +8,7 @@ import pathManager from "./scripts/pathManager"
 import { setIframeTheme } from "./scripts/iframeController.js"
 import importStyle from "./scripts/importers/style.js"
 import keydownEvent from "./utils/dom/keydownEvent.js"
+import eventbus from "./utils/eventbus/inst.js"
 
 importStyle("dist/chunks/skeleton.min.css")
 
@@ -15,15 +16,37 @@ importStyle("dist/chunks/skeleton.min.css")
 if (config.enableFab) {
     import("./components/fab.js")
 }
+if (config.enableSearch) {
+    import("./components/searchBox.js")
+}
 if (config.enableCatalog) {
+    function passEvent() {
+        if (isToShow) {
+            eventbus.emit("article-rendered", items)
+        }
+    }
+    let isLoaded = false
+    let isToShow = false
+    let items = null
     import("./components/catalog.js")
+        .then(() => isLoaded = true)
+        .then(passEvent)
+    
+    eventbus.on("article-rendered", _items => {
+        if (!isLoaded) {
+            isToShow = true
+            items = _items
+        }
+    })
 }
 
 // set theme switcher button event
-const lightBtn = document.querySelector("#light-btn")
-const darkBtn = document.querySelector("#dark-btn")
+const searchBtn = document.getElementById("search-btn")
+const lightBtn  = document.getElementById("light-btn")
+const darkBtn   = document.getElementById("dark-btn")
+searchBtn.onclick  = () => eventbus.emit("searchbox-show")
 lightBtn.onkeydown = keydownEvent(lightBtn)
-darkBtn.onkeydown = keydownEvent(darkBtn)
+darkBtn.onkeydown  = keydownEvent(darkBtn)
 
 // --- --- --- --- --- ---
 

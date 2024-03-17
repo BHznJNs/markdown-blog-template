@@ -21,10 +21,14 @@ fab-icon button {
     background-color: var(--fab-bg-color);
     border: none;
     border-radius: 50%;
+    outline: solid 3px transparent;
     cursor: pointer;
 }
 fab-icon button:hover {
     background-color: var(--hovered-bg-color);
+}
+fab-icon button:focus-visible {
+    outline-color: var(--default-tx-color);
 }
 fab-icon button:disabled {
     opacity: .8;
@@ -42,12 +46,14 @@ fab-icon #switcher {
                 filter .3s,
                 opacity .3s,
                 box-shadow .3s,
+                outline-color .3s,
                 transform .3s .25s;
 }
 fab-icon #switcher:hover {
     box-shadow: var(--shadow-md-2);
 }
 fab-icon button:not(#switcher) {
+    --animation-duration: .175s;
     --z-index-value: calc(var(--fab-item-count) - var(--fab-item-index));
     top: 10%;
     left: 10%;
@@ -60,13 +66,16 @@ fab-icon button:not(#switcher) {
                 filter .3s,
                 opacity .3s,
                 box-shadow .3s,
-                transform calc(var(--fab-item-index) * .25s) .25s;
+                outline-color .3s,
+                transform calc(var(--fab-item-index) * var(--animation-duration)) var(--animation-duration);
 }
 fab-icon.hidden button:not(#switcher) {
+    --animation-duration: .15s;
     transition: background .3s,
                 filter .3s,
                 box-shadow .3s,
-                transform calc(var(--fab-item-index) * .225s) calc(var(--z-index-value) * .225s + .15s) linear;
+                transform calc(var(--fab-item-index) * var(--animation-duration))
+                          calc(var(--z-index-value)  * var(--animation-duration) + .15s) linear;
 }
 fab-icon button:not(#switcher):hover {
     box-shadow: var(--shadow-md-1);

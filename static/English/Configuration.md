@@ -110,6 +110,23 @@ Ignored directories in the Newest, usage is the same as ##rssIgnoreDir##.
 
 - - -
 
+## In-Site Search
+
+##enableSearch##
+
+Value: true | false
+
+Used to enable / disable the In-Site Search function.
+
+
+##searchPageThreshold##
+
+Value: number
+
+Used to set the paging threshold for the search index, larger to set less page and slower index loading.
+
+- - -
+
 ## Page Capacity
 
 ##pageCapacity##

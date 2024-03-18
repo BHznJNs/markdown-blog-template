@@ -31,6 +31,7 @@ export function directoryItemRenderer(item) {
 
 const mainEl           = document.querySelector("main")
 const articleEl        = document.querySelector("article")
+const articleContainer = document.querySelector("#article-container")
 const articleList      = mainEl.querySelector("#article-list")
 const dirDescriptionEl = mainEl.querySelector("#directory-description")
 const pagingComponent  = mainEl.querySelector("paging-view")
@@ -63,7 +64,6 @@ export default function indexRender(indexing, itemResolver) {
     // --- --- --- --- --- ---
 
     articleEl.innerHTML = ""
-    articleEl.style.display = "none"
-    mainEl.style.display = "block"
+    mainEl.classList.remove("hidden")
     scrollToTop()
 }

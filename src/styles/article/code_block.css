@@ -47,6 +47,7 @@ pre.code-block code {
     font-size: 1em;
     font-family: var(--code-font);
     border-radius: 8px;
+    color: white; /* default text color in server side rendered */
     background-color: var(--default-block-code-bg-color);
     box-shadow: var(--shadow-md-1);
     transition: box-shadow .3s;

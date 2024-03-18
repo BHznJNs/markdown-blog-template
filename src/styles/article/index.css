@@ -22,6 +22,12 @@ article {
                 background .6s;
 }
 
+body > article:first-child {
+    /* for single article page style */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 #article-container {
     width: 100%;
 }

@@ -96,7 +96,7 @@ ${(config.enableRSS) ? `\
 </nav>`
 
 const main = `\
-<main style="display: none;" data-is-root=true>
+<main data-is-root=true>
     <header id="directory-description"></header>
 ${config.enableNewest ? `\
     <ul id="newest">
@@ -118,7 +118,7 @@ ${config.enableCatalog
     ? "<article-catalog></article-catalog>"
     : ""
 }
-<article style="display: none;"></article>
+<article></article>
 </div>`
 
 export const footer = config.footer

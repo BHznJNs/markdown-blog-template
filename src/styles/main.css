@@ -1,11 +1,19 @@
 main {
-    margin: 2rem var(--page-horizonal-padding) 4rem;
+    margin: 0 var(--page-horizonal-padding);
     padding: 1rem 2rem;
     border-radius: 1rem;
     color: var(--default-tx-color);
     background-color: var(--default-bg-color);
     box-shadow: var(--shadow-lg);
     transition: background .6s;
+}
+
+main.hidden {
+    /* the styles when the article element is shown */
+    display: none;
+}
+main:not(.hidden) + #article-container {
+    display: none;
 }
 
 @media screen and (max-width: 767px) {

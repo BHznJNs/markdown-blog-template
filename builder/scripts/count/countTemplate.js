@@ -43,9 +43,15 @@ function injectedScriptGenerator(lastYearData, multiYearData) {
         },
         visualMap: {
             show: false,
-            min: 0,
-            max: 10000,
             type: "piecewise",
+            pieces: [
+                {min: 0, max: 200},
+                {min: 200, max: 500},
+                {min: 500, max: 1500},
+                {min: 1500, max: 3000},
+                {min: 3000, max: 6000},
+                {min: 6000},
+            ]
         },
         calendar: {
             top: 80,

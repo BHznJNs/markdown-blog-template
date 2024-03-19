@@ -52,7 +52,7 @@ ol > li:hover {
 }
 ol > li::before {
     content: counter(list-item);
-    padding: 0 .375em;
+    padding: 0 .375em 1px;
     margin-right: .5em;
     color: var(--default-bg-color);
     background-color: var(--default-tx-color);

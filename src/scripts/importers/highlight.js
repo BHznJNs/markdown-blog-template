@@ -24,7 +24,6 @@ class HighlightImporter extends DynamicImporter {
 
     renderItem(el) {
         this._module.highlightElement(el)
-
     }
     async beforeRender(languageList=new Set()) {
         await this.#importLangDefs(Array.from(languageList))

@@ -2,6 +2,7 @@ import highlightRender from "./importers/highlight.js"
 import katexRender from "./importers/katex.js"
 import chartRender from "./importers/charts/index.js"
 
+import el from "../utils/dom/el.js"
 import mdResolver from "../utils/markdown/index.js"
 import keydownEvent from "../utils/dom/keydownEvent.js"
 import eventbus from "../utils/eventbus/inst.js"
@@ -45,7 +46,7 @@ export default function articleRender(articleEl, mdText) {
 
     let resultNodes = structure.map(node => node.toHTML())
     if (!resultNodes.length) {
-        resultNodes = el("h1", emptyArticlePlaceHolder)
+        resultNodes = [el("h1", emptyArticlePlaceHolder)]
     }
 
     // --- --- --- --- --- ---

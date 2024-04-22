@@ -128,6 +128,7 @@ class EchartsImporter extends ChartImporter {
     }
     #sizeSetter(el, options) {
         if (options.width) {
+            el.style.minWidth = "100%"
             el.style.width = options.width + "px"
             delete options.width
         }

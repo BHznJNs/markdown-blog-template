@@ -162,7 +162,7 @@ function parser(source) {
         if (KeyToken_TagName_map.has(ch)) {
             if (isEscape) {
                 if (isInKey) {
-                    keyTerm += ch
+                    keyTerm += "\\" + ch
                 } else {
                     textTerm += ch
                 }

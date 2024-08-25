@@ -2,7 +2,7 @@
     display: inline-flex;
     height: 2rem;
     align-items: center;
-    padding: 6px .5rem;
+    padding: 6px .4rem;
     color: var(--default-tx-color) !important;
     background-color: var(--default-bg-color);
     border: solid 1px var(--btn-bd-color);
@@ -34,7 +34,7 @@
 }
 
 .icon-btn img {
-    height: 1.6rem;
+    height: 2rem;
     aspect-ratio: 1;
     transition: filter .3s .15s;
 }

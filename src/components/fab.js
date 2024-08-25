@@ -36,8 +36,8 @@ class FabIcon extends HTMLElement {
         const switcher = this.#switcher = fabItem("switch"        , languageSelector("切换浮动操作按钮", "Switch The FAB"))
         this.#subItems.backToParent     = fabItem("back-to-parent", languageSelector("返回父级"       , "Back to Parent"))
         this.#subItems.backToTop        = fabItem("back-to-top"   , languageSelector("返回顶部"       , "Back to Top"   ))
-        this.#subItems.enlargeText      = fabItem("zoom-out"      , languageSelector("放大文本"       , "Enlarge Text"  ))
-        this.#subItems.downsizeText     = fabItem("zoom-in"       , languageSelector("缩小文本"       , "Downsize Text" ))
+        this.#subItems.enlargeText      = fabItem("zoom-in"       , languageSelector("放大文本"       , "Enlarge Text"  ))
+        this.#subItems.downsizeText     = fabItem("zoom-out"      , languageSelector("缩小文本"       , "Downsize Text" ))
         if (config.enableCatalog) {
             this.#subItems.catalogSwitcher =
                 fabItem("catalog", languageSelector("开启/关闭菜单" , "Open/Close Catalog"))

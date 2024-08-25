@@ -31,7 +31,7 @@ fab-icon button:focus-visible {
     outline-color: var(--default-tx-color);
 }
 fab-icon button:disabled {
-    opacity: .8;
+    opacity: .6;
     pointer-events: none;
 }
 
@@ -92,8 +92,8 @@ fab-icon button img {
     filter: invert(1);
 }
 fab-icon #switcher img {
-    width: 75%;
-    height: 75%;
+    width: 80%;
+    height: 80%;
     padding-bottom: 0;
     transform: rotate(-180deg);
     transition: padding .3s .25s,

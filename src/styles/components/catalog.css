@@ -34,8 +34,8 @@ article-catalog {
         position: fixed;
         top: calc(var(--top-margin) + 4rem) !important;
         left: var(--page-horizonal-padding);
+        right: var(--page-horizonal-padding);
         bottom: 0;
-        width: calc(100vw - 2 * var(--page-horizonal-padding));
         height: auto;
         border-top-left-radius: .75rem;
         border-top-right-radius: .75rem;

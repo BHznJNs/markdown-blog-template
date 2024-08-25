@@ -3,11 +3,19 @@ search-box .container {
 
     position: fixed;
     top: 1rem;
-    left: calc(var(--page-horizonal-padding) + 8px);
-    width: calc(100vw - 2 * var(--page-horizonal-padding) - 2 * 8px);
+    left: calc(var(--page-horizonal-padding));
+    right: calc(var(--page-horizonal-padding));
+    padding: 0 8px;
+    box-sizing: border-box;
     transform: translateY(calc(-2rem - var(--search-box-height)));
     transition: transform .3s,
                 opacity .3s;
+}
+
+@media screen and (max-width: 767px) {
+    search-box .container {
+        padding: 0 1rem;
+    }
 }
 
 search-box .container.show {

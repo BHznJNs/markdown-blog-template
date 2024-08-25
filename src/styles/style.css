@@ -36,7 +36,7 @@ body {
 @media screen and (max-width: 767px) {
     /* Mobile phone style */
     body {
-        --page-horizonal-padding: 0;
+        --page-horizonal-padding: 0px;
     }
 }
 @media screen and (min-width: 1024px) {

@@ -7,6 +7,12 @@ nav {
     user-select: none;
 }
 
+@media screen and (max-width: 767px) {
+    nav {
+        padding: 0 1rem;
+    }
+}
+
 body.dark #homepage img,
 body.dark #rss-icon img,
 body.dark #search-btn img {

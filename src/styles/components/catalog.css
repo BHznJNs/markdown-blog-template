@@ -1,5 +1,6 @@
 article-catalog {
     --top-margin: calc(5rem + 12px);
+    --item-margin-step: .875rem;
 
     color: var(--default-tx-color);
     background-color: var(--default-bg-color);

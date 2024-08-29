@@ -1,27 +1,25 @@
 import { unlinkSync } from "node:fs"
-import indexing from "../../indexing.js"
 import getNewest from "../../getNewest.js"
 import saveNewest from "./saveNewest.js"
 import saveRSS from "./saveRSS.js"
 import saveSearchIndex from "./resolveSearch.js"
 import config from "../../../build.config.js"
 import { indexFilePath, rssFilePath, rssResourcePath } from "../../utils/path.js"
-import clearDirectory from "../../utils/clearDirectory.js"
 import writeIndexTemplate from "../../indexTemplate.js"
-import readDir, { Directory } from "../../utils/readDir.js"
+import { Directory } from "../../utils/directory.js"
 
 if (!config.homepage.endsWith("/")) {
     config.homepage += "/"
 }
 
 try { unlinkSync(rssFilePath) } catch {}
-clearDirectory(indexFilePath)
-clearDirectory(rssResourcePath)
+Directory.clear(indexFilePath)
+Directory.clear(rssResourcePath)
 writeIndexTemplate()
 
 const staticDir = new Directory("static")
-readDir(staticDir, "")
-indexing(staticDir, "static")
+staticDir.read()
+staticDir.indexing()
 
 // --- --- --- --- --- ---
 
@@ -30,7 +28,7 @@ if (
     !config.enableNewest &&
     !config.enableSearch
 ) {
-    // if RSS and newest are both disabled,
+    // if RSS, newest and search are all disabled,
     // there is no need to continue.
     process.exit(0)
 }

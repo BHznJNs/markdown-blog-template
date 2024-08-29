@@ -1,4 +1,4 @@
-import { Directory, File } from "./utils/readDir.js"
+import { Directory, File } from "./utils/directory.js"
 
 class FileMonoStack {
     // `children`: where the data are stored,

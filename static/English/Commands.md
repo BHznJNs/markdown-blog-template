@@ -8,6 +8,10 @@ Generate a ``backup.json`` file that stores the metadata (filename, file created
 
 Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory. If the RSS feature is enabled, will generate ``rss.xml`` file and server side rendered HTML files for the newests articles.
 
+## ``npm run indexing``
+
+Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory.
+
 ## ``npm run compress``
 
 Build the front-end source code with rollup. The configuration file for rollup is at ``builder/rollup.config.js``.

@@ -95,7 +95,7 @@ export default {
      * defined the amount of the items in every page
      * 定义每一页展示的博文数
      */
-    pageCapacity: 10,
+    pageCapacity: 100,
 
     /**
      * RSSCapacity: Number

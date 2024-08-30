@@ -4,13 +4,13 @@
 
 Generate a ``backup.json`` file that stores the metadata (filename, file created date and file modified date) of all the files in the ``static`` directory. Should be used with the ``npm run restore``.
 
-## ``npm run build``
-
-Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory. If the RSS feature is enabled, will generate ``rss.xml`` file and server side rendered HTML files for the newests articles.
-
 ## ``npm run indexing``
 
-Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory.
+Traverse the ``static`` directory, generate the file indexing files in the ``.index`` directory. If the newest feature is enabled, will update the newest indexes. If the searching feature is enabled, will update the searching indexes.
+
+## ``npm run build``
+
+Execute the command ``npm run indexing``. If the optional UI components in the configuration modified, apply the update to the page file. If the RSS feature is enabled, will generate ``rss.xml`` file and server side rendered HTML files for the newests articles.
 
 ## ``npm run compress``
 

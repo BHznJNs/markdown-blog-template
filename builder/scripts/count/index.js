@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs"
-import readDir, { Directory } from "../../utils/readDir.js"
+import { Directory } from "../../utils/directory.js"
 import getNewest from "../../getNewest.js"
 import { countHTMLPath } from "../../utils/path.js"
 import mdResolver from "../../utils/markdown/index.js"
@@ -20,7 +20,7 @@ function countFile(path) {
 
 try { unlinkSync(countHTMLPath) } catch {}
 const staticDir = new Directory("static")
-readDir(staticDir, "")
+staticDir.read()
 const newests = getNewest(staticDir)
 
 // total word count & write dates

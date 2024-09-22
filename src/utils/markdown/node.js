@@ -328,7 +328,7 @@ export class Iframe extends MediaNode {
         const iframeEl = el("iframe", this.description, {
             src: actualUrl,
             title: this.description,
-            sandbox: "allow-scripts",
+            sandbox: "allow-same-origin allow-scripts",
             loading: "lazy",
         })
         return MediaNode.containerGenerator(iframeEl)

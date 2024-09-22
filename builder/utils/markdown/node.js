@@ -276,7 +276,7 @@ export class IframeBlock {
             id: this.id,
             title: this.description,
             srcdoc: this.content,
-            sandbox: "allow-scripts",
+            sandbox: "allow-same-origin allow-scripts",
         })
         return MediaNode.containerGenerator(iframeEl)
     }

@@ -1,4 +1,5 @@
 import config from "../../build.config.js"
+import htmlEntityReplace from "../utils/htmlEntityReplace.js";
 
 // input: [RssItem]
 // output: RssXmlString
@@ -9,7 +10,7 @@ export default function(items) {
 <channel>
 <title>${config.title ? config.title : "Markdown Blog"}</title>
 <link>${config.homepage ? config.homepage : "https://bhznjns.github.io/markdown-blog-template"}</link>
-${config.description ? `<description>${config.description}</description>` : ""}
+${config.description ? `<description>${htmlEntityReplace(config.description)}</description>` : ""}
 `
     const RssTemplateAfter = `</channel>
 </rss>`

@@ -3,6 +3,7 @@ import config from "../../build.config.js"
 import renderer from "../utils/markdown/renderer.js"
 import { rssResourcePath } from "../utils/path.js"
 import rssTimeFormater from "./formatTime.js"
+import htmlEntityReplace from "../utils/htmlEntityReplace.js"
 
 function getPathParts(filePath) {
     const splited = filePath.split("/")
@@ -24,7 +25,7 @@ export class RssItem {
         this.link          = link
         this.pubTime       = pubTime
         this.lastBuildTime = lastBuildTime
-        this.description   = description
+        this.description   = description ? htmlEntityReplace(this.description) : " "
     }
     toString() {
         return `<item>
@@ -32,7 +33,7 @@ export class RssItem {
 <link>${this.link}</link>
 <pubDate>${rssTimeFormater(this.pubTime)}</pubDate>
 <lastBuildDate>${rssTimeFormater(this.lastBuildTime)}</lastBuildDate>
-<description>${this.description || " "}</description>
+<description>${this.description}</description>
 </item>
 `
     }
@@ -55,7 +56,7 @@ export default function rssItemGenerator(file) {
         config.homepage + articlePath,
         file.createTime,
         file.modifyTime,
-        articleInfo.description
+        articleInfo.description,
     )
     return rssItem
 }

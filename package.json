@@ -10,7 +10,7 @@
     "count": "node ./builder/scripts/count/index.js",
     "backup": "node ./builder/scripts/backup.js",
     "restore": "node ./builder/scripts/restore.js",
-    "build": "npm run indexing ; node ./builder/scripts/build/index.js",
+    "build": "npm run indexing && node ./builder/scripts/build/index.js",
 
     "compress": "rollup --config builder/rollup.config.js",
     "test": "mocha ./builder/test/*.test.js ./builder/test/*/*.test.js"

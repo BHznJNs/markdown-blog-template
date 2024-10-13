@@ -17,24 +17,39 @@ function countFile(path) {
     return wordCount
 }
 
+function getFileCatalog(path) {
+    // path format:
+    // static/<catalog>/...subfolders.../<filename>.md
+    if (typeof path !== "string" || !path.startsWith("static/")) {
+        throw new Error("Invalid file path. It should start with \"static/\"");
+    }
+    const pathWithoutStatic = path.substring(7)
+    const firstSlashIndex = pathWithoutStatic.indexOf("/")
+    if (firstSlashIndex === -1) {
+        return pathWithoutStatic
+    }
+    return pathWithoutStatic.substring(0, firstSlashIndex)
+}
+
 
 try { unlinkSync(countHTMLPath) } catch {}
 const staticDir = new Directory("static")
 staticDir.read()
 const newests = getNewest(staticDir)
 
-// total word count & write dates
-const dateList  = []
+// total word count & write dates & catalogs
+const metadataList  = []
 let totalCount = 0
 for (const file of newests.children) {
     const date  = file.createTime
     const count = countFile(file.path)
+    const catalog = getFileCatalog(file.path)
 
-    dateList.push([ date, count ])
+    metadataList.push({ date, count, catalog })
     totalCount += count
 }
 
 // start writing date
 const firstArticle = newests.children[newests.length - 1]
 const startTime = firstArticle.createTime
-countTemplate(startTime, dateList, totalCount)
+countTemplate(startTime, metadataList, totalCount)

@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs"
-import { formatEchartsDate, formatEchartsDataPair } from "./formatEchartsData.js"
+import { formatEchartsDate } from "./formatEchartsData.js"
 import { countHTMLPath } from "../../utils/path.js"
 import languageSelector from "../../../src/utils/languageSelector.js"
 import {
@@ -13,15 +13,15 @@ function isWithinLastYear(timestamp) {
     return now - oneYear <= timestamp
 }
 
-function classifyDataByYear(dataPairs) {
+function classifyDataByYear(metadataList) {
     const yearsMap = new Map()
-    for (const [timestamp, data] of dataPairs) {
-        const year = new Date(timestamp).getFullYear()
+    for (const { date, count } of metadataList) {
+        const year = new Date(date).getFullYear()
         if (!yearsMap.has(year)) {
             yearsMap.set(year, 0)
         }
-        const currentCount = yearsMap.get(year) + data
-        yearsMap.set(year, currentCount)
+        const currentCount = yearsMap.get(year)
+        yearsMap.set(year, currentCount + count)
     }
     return {
         years: Array.from(yearsMap.keys()).reverse(),
@@ -29,13 +29,44 @@ function classifyDataByYear(dataPairs) {
     }
 }
 
-function injectedScriptGenerator(lastYearData, multiYearData) {
-    const startDate  = formatEchartsDate(now - oneYear)
-    const endDate    = formatEchartsDate(now)
+function classifyDataByCatalog(metadataList) {
+    function insertDataIntoMap(map, kvPair, defaultValue = 0, valueAccumulator = (oldVal, newVal) => oldVal + newVal) {
+        if (!map.has(kvPair[0])) {
+            map.set(kvPair[0], defaultValue)
+        }
+        const currentValue = map.get(kvPair[0])
+        map.set(kvPair[0], valueAccumulator(currentValue, kvPair[1]))
+    }
+
+    const historyCatalogMap = new Map()
+    const annualCatalogMap = new Map()
+    for (const { date, catalog, count } of metadataList) {
+        const kvPair = [catalog, count]
+        insertDataIntoMap(historyCatalogMap, kvPair)
+        if (isWithinLastYear(date)) {
+            insertDataIntoMap(annualCatalogMap, kvPair)
+        }
+    }
+
+    const historyData = []
+    const annualData = []
+    for (const [key, value] of historyCatalogMap) {
+        historyData.push({ name: key, value })
+    }
+    for (const [key, value] of annualCatalogMap) {
+        annualData.push({ name: key, value })
+    }
+    return { historyData, annualData }
+}
+
+function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) {
+    const startDate = formatEchartsDate(now - oneYear)
+    const endDate = formatEchartsDate(now)
+    const paddingWidth = 4
 
     const lastYearOption = {
-        width: 900,
-        height: 240,
+        width: 1200,
+        height: 280,
         title: {
             top: 20,
             left: "center",
@@ -45,26 +76,27 @@ function injectedScriptGenerator(lastYearData, multiYearData) {
             show: false,
             type: "piecewise",
             pieces: [
-                {min: 0, max: 200},
-                {min: 200, max: 500},
-                {min: 500, max: 1500},
-                {min: 1500, max: 3000},
-                {min: 3000, max: 6000},
-                {min: 6000},
+                { min: 0, max: 200 },
+                { min: 200, max: 500 },
+                { min: 500, max: 1500 },
+                { min: 1500, max: 3000 },
+                { min: 3000, max: 6000 },
+                { min: 6000 },
             ]
         },
         calendar: {
             top: 80,
-            left: 30,
+            left: 36,
             right: 30,
-            cellSize: ["auto", 16],
+            cellSize: 24,
             range: [startDate, endDate],
             yearLabel: { show: false }
         },
         series: {
             type: "heatmap",
             coordinateSystem: "calendar",
-            data: lastYearData.map(formatEchartsDataPair)
+            data: lastYearData.map(({ date, count }) =>
+                [formatEchartsDate(date), count])
         }
     }
     const pastYearsOption = {
@@ -93,12 +125,48 @@ function injectedScriptGenerator(lastYearData, multiYearData) {
             type: "bar",
         }
     }
+    const catalogsOption = {
+        title: [
+            {
+                text: languageSelector("各分类年度字数统计", "Word Counts of Catalogs\nfor the Last Year"),
+                left: "2%",
+                top: "10%",
+                textAlign: "left",
+            },
+            {
+                text: languageSelector("各分类历年字数统计", "Word Counts of Catalogs\nfor the Past Years"),
+                left: "96%",
+                bottom: "10%",
+                textAlign: "right",
+            },
+        ],
+        series: [
+            {
+                type: "pie",
+                left: "42%",
+                right: paddingWidth,
+                top: paddingWidth,
+                bottom: "40%",
+                data: multiCatalogData.annualData,
+            },
+            {
+                type: "pie",
+                left: paddingWidth,
+                right: "42%",
+                top: "40%",
+                bottom: paddingWidth,
+                data: multiCatalogData.historyData,
+            }
+        ],
+    }
+
     const injectedScript = `\
 <script type="module">
 import echartsImporter from "./src/scripts/importers/charts/echarts.js"
 
 document.querySelector("#last-year").__ChartOptions__ = ${JSON.stringify(lastYearOption)}
 document.querySelector("#past-years").__ChartOptions__ = ${JSON.stringify(pastYearsOption)}
+document.querySelector("#catalogs").__ChartOptions__ = ${JSON.stringify(catalogsOption)}
 echartsImporter()
 </script>`
     return injectedScript
@@ -124,18 +192,26 @@ function bodyContentGenerator(startDate, totalCount) {
 )}</p>
 <div class="media-container">
 <div class="echarts-container" id="past-years"></div>
+</div>
+<p>${languageSelector(
+    "下面是你在各个分类下输出的字数：",
+    "The chart following shows the word count you outputed in the different catalogs:"
+)}</p>
+<div class="media-container">
+<div class="echarts-container" id="catalogs"></div>
 </div>`
-    return resultContent 
+    return resultContent
 }
 
-export default function(startTime, dateList, totalCount) {
+export default function (startTime, metadataList, totalCount) {
     const startDate = new Intl.DateTimeFormat().format(new Date(startTime))
-    const lastYearData = dateList
-        .filter(([timestamp, _]) =>
-            isWithinLastYear(timestamp))
+    const lastYearData = metadataList
+        .filter(({ date }) =>
+            isWithinLastYear(date))
         .reverse()
-    const multiYearData = classifyDataByYear(dateList)
-    const injectedScript = injectedScriptGenerator(lastYearData, multiYearData)
+    const multiYearData = classifyDataByYear(metadataList)
+    const multiCatalogData = classifyDataByCatalog(metadataList)
+    const injectedScript = injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData)
     const bodyContent = bodyContentGenerator(startDate, totalCount)
 
     const template = `\
@@ -152,6 +228,5 @@ ${footer}
 ${injectedScript}
 </body>
 </html>`
-
     writeFileSync(countHTMLPath, template)
 }

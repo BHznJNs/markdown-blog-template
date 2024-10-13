@@ -6,7 +6,7 @@ export function formatEchartsDate(timestamp) {
     return `${year}-${month}-${day}`
 }
 
-export function formatEchartsDataPair([timestamp, data]) {
-    const dateStr = formatEchartsDate(timestamp)
-    return [dateStr, data]
-}
+// export function formatEchartsDatePair([timestamp, data]) {
+//     const dateStr = formatEchartsDate(timestamp)
+//     return [dateStr, data]
+// }

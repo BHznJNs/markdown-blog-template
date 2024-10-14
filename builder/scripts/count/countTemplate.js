@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs"
-import { formatEchartsDate } from "./formatEchartsData.js"
+import { formatEchartsDate, insertDataIntoMap } from "./utils.js"
 import { countHTMLPath } from "../../utils/path.js"
 import languageSelector from "../../../src/utils/languageSelector.js"
 import {
@@ -13,15 +13,22 @@ function isWithinLastYear(timestamp) {
     return now - oneYear <= timestamp
 }
 
+function classifyDataByDay(metadataList) {
+    const resultMap = new Map()
+    for (const {date, count} of metadataList) {
+        if (!isWithinLastYear(date)) {
+            continue;
+        }
+        insertDataIntoMap(resultMap, [formatEchartsDate(date), count])
+    }
+    return Array.from(resultMap.entries())
+}
+
 function classifyDataByYear(metadataList) {
     const yearsMap = new Map()
     for (const { date, count } of metadataList) {
         const year = new Date(date).getFullYear()
-        if (!yearsMap.has(year)) {
-            yearsMap.set(year, 0)
-        }
-        const currentCount = yearsMap.get(year)
-        yearsMap.set(year, currentCount + count)
+        insertDataIntoMap(yearsMap, [year, count])
     }
     return {
         years: Array.from(yearsMap.keys()).reverse(),
@@ -30,14 +37,6 @@ function classifyDataByYear(metadataList) {
 }
 
 function classifyDataByCatalog(metadataList) {
-    function insertDataIntoMap(map, kvPair, defaultValue = 0, valueAccumulator = (oldVal, newVal) => oldVal + newVal) {
-        if (!map.has(kvPair[0])) {
-            map.set(kvPair[0], defaultValue)
-        }
-        const currentValue = map.get(kvPair[0])
-        map.set(kvPair[0], valueAccumulator(currentValue, kvPair[1]))
-    }
-
     const historyCatalogMap = new Map()
     const annualCatalogMap = new Map()
     for (const { date, catalog, count } of metadataList) {
@@ -76,9 +75,9 @@ function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) 
             show: false,
             type: "piecewise",
             pieces: [
-                { min: 0, max: 200 },
-                { min: 200, max: 500 },
-                { min: 500, max: 1500 },
+                { min: 0, max: 300 },
+                { min: 300, max: 600 },
+                { min: 600, max: 1500 },
                 { min: 1500, max: 3000 },
                 { min: 3000, max: 6000 },
                 { min: 6000 },
@@ -95,8 +94,7 @@ function injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData) 
         series: {
             type: "heatmap",
             coordinateSystem: "calendar",
-            data: lastYearData.map(({ date, count }) =>
-                [formatEchartsDate(date), count])
+            data: lastYearData,
         }
     }
     const pastYearsOption = {
@@ -204,13 +202,11 @@ function bodyContentGenerator(startDate, totalCount) {
 }
 
 export default function (startTime, metadataList, totalCount) {
-    const startDate = new Intl.DateTimeFormat().format(new Date(startTime))
-    const lastYearData = metadataList
-        .filter(({ date }) =>
-            isWithinLastYear(date))
-        .reverse()
+    const lastYearData = classifyDataByDay(metadataList)
     const multiYearData = classifyDataByYear(metadataList)
     const multiCatalogData = classifyDataByCatalog(metadataList)
+    
+    const startDate = new Intl.DateTimeFormat().format(new Date(startTime))
     const injectedScript = injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData)
     const bodyContent = bodyContentGenerator(startDate, totalCount)
 

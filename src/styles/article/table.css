@@ -43,10 +43,6 @@ thead {
     font-weight: bold;
 }
 
-th:first-child,
-td:first-child {
-    padding-right: 0 !important;
-}
 th, td {
     min-width: 6em;
     padding: 8px 18px !important;

@@ -12,6 +12,9 @@ import {
     Divider,
     List,
     Table,
+    QABlock,
+    Question,
+    Answer,
 } from "./node.js"
 
 // count method patches
@@ -53,6 +56,16 @@ Table.prototype.count = function() {
         , 0)
     return headerCount + bodyCount
 }
+QABlock.prototype.count = function() {
+    return this.elements.reduce((accumulator, element) =>
+        accumulator + element.count(), 0)
+}
+Question.prototype.count = function() {
+    return countEntry(this.content)
+}
+Answer.prototype.count = function() {
+    return countEntry(this.content)
+}
 
 export {
     Headline,
@@ -61,6 +74,9 @@ export {
     Divider,
     List,
     Table,
+    QABlock,
+    Question,
+    Answer,
 } from "../../../src/utils/markdown/node.js"
 
 // --- --- --- --- -

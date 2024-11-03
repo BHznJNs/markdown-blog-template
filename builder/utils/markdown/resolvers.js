@@ -9,6 +9,7 @@ import { blockResolverGenerator } from "../../../src/utils/markdown/resolvers/in
 export {
     listResolver, tableResolver,
 } from "../../../src/utils/markdown/resolvers/index.js"
+export { QAResolver } from "../../../src/utils/markdown/resolvers/QAResolver.js"
 
 export const chartResolver   = blockResolverGenerator("!!!", ChartBlock)
 export const formulaResolver = blockResolverGenerator("$$$", FormulaBlock)

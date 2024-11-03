@@ -3,7 +3,8 @@ ul,
 li {
     --border-radius-value: 6px;
     color: inherit;
-    transition: color .3s .15s;
+    transition: background .3s,
+                color .3s .15s;
 }
 
 ol {
@@ -20,8 +21,6 @@ ul {
 ol li,
 ul li {
     margin-bottom: .25em;
-    transition: color .3s,
-                background .3s;
 }
 
 ul > li {

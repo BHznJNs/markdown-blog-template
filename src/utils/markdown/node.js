@@ -190,6 +190,44 @@ class TaskListItem {
     }
 }
 
+export class QABlock {
+    elements = [] // list for `Question` and `Answer`
+    push(element) {
+        this.elements.push(element)
+    }
+    toHTML() {
+        const container = el("div", this.elements.map(item => item.toHTML()), {
+            "class": "qa-block"
+        })
+        return container
+    }
+}
+
+export class Question {
+    constructor(content) {
+        this.content = content.substr(3)
+    }
+    toHTML() {
+        const container = el("div", parseEntry(this.content), {
+            "class": "question"
+        })
+        return container
+    }
+    static pattern = source => source.startsWith("Q: ")
+}
+export class Answer {
+    constructor(content) {
+        this.content = content.substr(3)
+    }
+    toHTML() {
+        const container = el("div", parseEntry(this.content), {
+            "class": "answer"
+        })
+        return container
+    }
+    static pattern = source => source.startsWith("A: ")
+}
+
 export class Table {
     headerCells = [""]   // [string]
     bodyRows    = [[""]] // [[string]]

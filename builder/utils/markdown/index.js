@@ -10,7 +10,7 @@ import {
     Answer
 } from "./node.js"
 import {
-    listResolver, quoteResolver, tableResolver,
+    listResolver, quoteResolver, tableResolver, QAResolver,
     chartResolver, formulaResolver,
     codeResolver, iframeResolver, detailsResolver,
 } from "./resolvers.js"

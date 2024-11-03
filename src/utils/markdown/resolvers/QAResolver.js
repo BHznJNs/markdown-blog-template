@@ -1,4 +1,4 @@
-import { Answer, QABlock, Question } from "../node";
+import { Answer, QABlock, Question } from "../node.js"
 
 export default function QAResolver(firstLine, lines) {
     const block = new QABlock()

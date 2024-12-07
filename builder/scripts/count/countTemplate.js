@@ -170,12 +170,12 @@ echartsImporter()
     return injectedScript
 }
 
-function bodyContentGenerator(startDate, totalCount) {
+function bodyContentGenerator(startDate, articleCount, totalCount) {
     const resultContent = `\
 <h1>${languageSelector("统计信息", "Statistics")}</h1>
 <p>${languageSelector(
-    `自 <b>${startDate}</b> 以来，你共撰写 <b>${totalCount}</b> 字。`,
-    `Since <b>${startDate}</b>, You have written <b>${totalCount}</b> words.`,
+    `自 <b>${startDate}</b> 以来，你共发布了文章 <b>${articleCount}</b> 篇，总字数 <b>${totalCount}</b> 字。`,
+    `Since <b>${startDate}</b>, you have published <b>${articleCount}</b> articles, with a total word count of <b>${totalCount}</b>.`,
 )}</p>
 <p>${languageSelector(
     "下面是你在过去一年中每一天输出的字数：",
@@ -201,14 +201,14 @@ function bodyContentGenerator(startDate, totalCount) {
     return resultContent
 }
 
-export default function (startTime, metadataList, totalCount) {
+export default function (startTime, metadataList, totalWordCount) {
     const lastYearData = classifyDataByDay(metadataList)
     const multiYearData = classifyDataByYear(metadataList)
     const multiCatalogData = classifyDataByCatalog(metadataList)
-    
+
     const startDate = new Intl.DateTimeFormat().format(new Date(startTime))
     const injectedScript = injectedScriptGenerator(lastYearData, multiYearData, multiCatalogData)
-    const bodyContent = bodyContentGenerator(startDate, totalCount)
+    const bodyContent = bodyContentGenerator(startDate, metadataList.length, totalWordCount)
 
     const template = `\
 <!DOCTYPE html>

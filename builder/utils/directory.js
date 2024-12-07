@@ -60,7 +60,7 @@ export class Directory {
         if (!isExist(indexFilePath)) {
             mkdirSync(indexFilePath)
         }
-    
+
         const currentFiles = []
         const currentDirs  = []
         let directoryDescription

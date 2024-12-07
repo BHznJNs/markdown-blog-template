@@ -39,17 +39,17 @@ const newests = getNewest(staticDir)
 
 // total word count & write dates & catalogs
 const metadataList  = []
-let totalCount = 0
+let totalWordCount = 0
 for (const file of newests.children) {
     const date  = file.createTime
     const count = countFile(file.path)
     const catalog = getFileCatalog(file.path)
 
     metadataList.push({ date, count, catalog })
-    totalCount += count
+    totalWordCount += count
 }
 
 // start writing date
 const firstArticle = newests.children[newests.length - 1]
 const startTime = firstArticle.createTime
-countTemplate(startTime, metadataList, totalCount)
+countTemplate(startTime, metadataList, totalWordCount)

@@ -49,7 +49,7 @@ blockquote:hover::before {
 
 /* --- --- --- --- --- --- */
 
-body:not(.dark) blockquote {
+body.light blockquote {
     --quote-tx-color: #4a4a4a;
     --quote-bg-color: #f5f5f5;
 
@@ -84,7 +84,7 @@ body.dark blockquote {
 
 /* alert styles */
 
-body:not(.dark) blockquote.alert {
+body.light blockquote.alert {
     --hovered-bg-color: hsla(0, 0%, 73%, 0.2);
     --default-inline-code-bg-color: hsla(0, 0%, 73%, 0.4);
 }

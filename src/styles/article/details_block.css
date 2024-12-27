@@ -44,7 +44,7 @@ div.details details {
 }
 
 
-body:not(.dark) details[open] {
+body.light details[open] {
     background-color: var(--default-bg-color);
 }
 

@@ -1,4 +1,4 @@
-body:not(.dark) {
+body.light {
     --default-tx-color: #333;
     --hovered-tx-color: #000;
 

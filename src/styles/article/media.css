@@ -166,15 +166,15 @@ audio::-webkit-media-controls-time-remaining-display {
 }
 @media (prefers-color-scheme: dark) {
     /* light mode style when the dark mode is enabled in OS */
-    body:not(.dark) audio::-webkit-media-controls-current-time-display,
-    body:not(.dark) audio::-webkit-media-controls-time-remaining-display {
+    body.light audio::-webkit-media-controls-current-time-display,
+    body.light audio::-webkit-media-controls-time-remaining-display {
         text-shadow: 0 0 1px var(--default-tx-color);
     }
 
-    body:not(.dark) audio::-webkit-media-controls-play-button,
-    body:not(.dark) audio::-webkit-media-controls-mute-button,
-    body:not(.dark) audio::-webkit-media-controls-volume-slider,
-    body:not(.dark) audio::-webkit-media-controls-timeline {
+    body.light audio::-webkit-media-controls-play-button,
+    body.light audio::-webkit-media-controls-mute-button,
+    body.light audio::-webkit-media-controls-volume-slider,
+    body.light audio::-webkit-media-controls-timeline {
         filter: invert(.85);
     }
 }

@@ -2,7 +2,7 @@ div.qa-block {
     margin: 1rem 0;
 }
 
-body:not(.dark) div.qa-block {
+body.light div.qa-block {
     --questioning-bg-color: #D0E2FF;
     --answering-bg-color: #eee;
 }

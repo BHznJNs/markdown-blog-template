@@ -5,6 +5,19 @@
 @import url(./article/index.css);
 @import url(./components/index.css);
 
+@media (prefers-color-scheme: light) {
+    body.light {
+        color: #333;
+        background-color: #f7f7f7;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body.dark {
+        color: #f7f7f7;
+        background-color: #000;
+    }
+}
+
 body {
     --text-font:
     /* en */ -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Helvetica Neue,Helvetica,Arial,

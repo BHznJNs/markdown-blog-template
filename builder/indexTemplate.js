@@ -21,7 +21,8 @@ export const inlineDarkmodeSwitcherScript = `\
 const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
 const darkModeSwitcher = () => {
     const isDarkMode = darkModeMediaQuery.matches
-    document.body.classList.toggle("dark", isDarkMode)
+    document.body.classList.toggle("dark" ,  isDarkMode)
+    document.body.classList.toggle("light", !isDarkMode)
 }
 if (darkModeMediaQuery) {
     darkModeMediaQuery.addListener(darkModeSwitcher)
@@ -71,7 +72,7 @@ ${(config.enableRSS) ? `\
                 role="button"
                 tabindex="0"
                 title="${languageSelector("亮色模式", "Light Mode")}"
-                onclick="document.body.classList.remove('dark')"
+                onclick="document.body.classList.remove('dark'); document.body.classList.add('light')"
             >
                 <img
                     src="./dist/imgs/sun.svg"
@@ -84,7 +85,7 @@ ${(config.enableRSS) ? `\
                 role="button"
                 tabindex="0"
                 title="${languageSelector("黑暗模式", "Dark Mode")}"
-                onclick="document.body.classList.add('dark')"
+                onclick="document.body.classList.add('dark'); document.body.classList.remove('light')"
             >
                 <img
                     src="./dist/imgs/moon.svg"

@@ -112,6 +112,13 @@ export default {
     previewPort: 3000,
 
     /**
+     * extraScripts: [String]
+     * defined some extra JavaScript scripts that will be also loaded in the page
+     * 定义一些会在页面中加载的额外的 JavaScript 脚本
+     */
+    extraScripts: [],
+
+    /**
      * katexOptions: Object
      * options for katex.js rendering, see here: https://katex.org/docs/options
      * katex.js 用于渲染数学公式的配置项，见此：https://katex.org/docs/options

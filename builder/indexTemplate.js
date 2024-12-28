@@ -151,6 +151,11 @@ ${navigator}
 ${main}
 ${article}
 ${footer}
+${config.extraScripts
+    .map((scriptPath) =>
+        `<script async src="${scriptPath}"></script>`)
+    .join("")
+}
 </body>
 </html>`
 

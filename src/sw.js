@@ -1,8 +1,7 @@
-const cacheName = "MarkdownBlog"
+const cacheName = "MarkdownBlog-v0.1.0"
 const necessaryResources = [
     "./dist/imgs/sun.svg",
     "./dist/imgs/moon.svg",
-    "./dist/imgs/rss.svg",
     "./dist/imgs/homepage.svg",
     "./dist/imgs/broken-image.svg",
     "./dist/imgs/favicon.png",
@@ -10,6 +9,7 @@ const necessaryResources = [
 const optionalResources = [
     /\/dist\/libs\//,
     "./dist/imgs/search.svg",
+    "./dist/imgs/rss.svg",
     "./dist/imgs/fab-switch.svg",
     "./dist/imgs/fab-catalog.svg",
     "./dist/imgs/fab-back-to-top.svg",
@@ -23,9 +23,10 @@ function getCleanURL() {
     const href = location.href
     const hashIndex = href.indexOf('#')
     if (hashIndex !== -1) {
-        href = href.substring(0, hashIndex)
+        return href.substring(0, hashIndex)
+    } else {
+        return href
     }
-    return href
 }
 
 // check if the input URL is in the necessary
@@ -70,13 +71,13 @@ self.addEventListener("install", e => {
 
 self.addEventListener("activate", e => {
     e.waitUntil((async () => {
-        // auto update cache when this file updated
-        const cache = await caches.open(cacheName)
-        const keys = await cache.keys()
-        keys.filter(req =>
-            !isResourceToCache(req.url, "option") &&
-            !isResourceToCache(req.url, "necessary"))
-        .forEach(req => cache.delete(req))
+        // delete resources for outdated version
+        const keys = await caches.keys()
+        await Promise.all(
+            keys
+                .filter(key => key !== cacheName)
+                .map(key => caches.delete(key))
+        )
     })())
     console.log("[Service Worker] Activated")
 })
@@ -89,15 +90,8 @@ self.addEventListener("fetch", e => {
         return currentURL.origin === targetURL.origin
     }
     async function returnCachedResource(reqURL) {
-        if (!isSameOrigin(reqURL)) {
-            return fetch(reqURL, {
-                mode: "no-cors"
-            })
-        }
-
         const cache = await caches.open(cacheName)
         const cachedResponse = await cache.match(reqURL)
-
         if (cachedResponse) {
             // return cached resources directly
             return cachedResponse
@@ -119,5 +113,8 @@ self.addEventListener("fetch", e => {
         return fetchResponse
     }
     const reqURL = e.request.url
+    if (!isSameOrigin(reqURL)) {
+        return;
+    }
     e.respondWith(returnCachedResource(reqURL))
 })

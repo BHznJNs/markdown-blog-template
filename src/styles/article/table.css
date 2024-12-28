@@ -1,5 +1,6 @@
 .table {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     margin-bottom: 1rem;
     overflow-x: auto;
     overflow-y: hidden;

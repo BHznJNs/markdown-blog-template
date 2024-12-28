@@ -64,4 +64,8 @@ svg.railroad-diagram rect {
 }
 svg.railroad-diagram text {
     fill: var(--default-tx-color);
+    font-family: var(--code-font) var(--text-font);
+}
+body.dark svg.railroad-diagram text {
+    font-weight: normal;
 }

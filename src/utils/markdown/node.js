@@ -274,9 +274,12 @@ class MediaNode {
         this.source = getInterval(mdText, ")")
     }
 
-    static containerGenerator(content) {
+    static containerGenerator(content, type) {
         return el("div", content, {
-            "class": "media-container"
+            "class": [
+                "media-container",
+                type ?? "",
+            ].join(" ")
         })
     }
 
@@ -323,8 +326,9 @@ export class Image extends MediaNode {
             target.onclick = null
             target.title = this.description
             target.classList.add("load-error")
+            target.parentNode.classList.remove("image")
         }
-        return MediaNode.containerGenerator(imageEl)
+        return MediaNode.containerGenerator(imageEl, "image")
     }
 }
 
@@ -369,7 +373,7 @@ export class Iframe extends MediaNode {
             sandbox: "allow-same-origin allow-scripts",
             loading: "lazy",
         })
-        return MediaNode.containerGenerator(iframeEl)
+        return MediaNode.containerGenerator(iframeEl, "iframe")
     }
 }
 
@@ -507,7 +511,7 @@ if (theme) {
             srcdoc: this.content,
             sandbox: "allow-scripts",
         })
-        return MediaNode.containerGenerator(iframeEl)
+        return MediaNode.containerGenerator(iframeEl, "iframe")
     }
 }
 

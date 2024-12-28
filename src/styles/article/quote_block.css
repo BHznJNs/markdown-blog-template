@@ -50,9 +50,6 @@ blockquote:hover::before {
 /* --- --- --- --- --- --- */
 
 body.light blockquote {
-    --quote-tx-color: #4a4a4a;
-    --quote-bg-color: #f5f5f5;
-
     --note-tx-color: #1976D2;
     --note-bg-color: #E3F2FD;
     --important-tx-color: #303F9F;
@@ -66,8 +63,6 @@ body.light blockquote {
 }
 
 body.dark blockquote {
-    --quote-tx-color: #ececec;
-    --quote-bg-color: #3e3e3e;
     --bg-color: var(--mixed-bg-color, var(--quote-bg-color)) !important;
 
     --note-tx-color: #42A5F5;

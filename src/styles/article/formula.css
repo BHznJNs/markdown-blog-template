@@ -6,10 +6,8 @@
 }
 
 div.math {
-    width: max-content;
     max-width: 100%; /* prevent overflow*/
-    margin: 0 auto;
-    padding: 2px .5rem 6px;
+    margin: 1rem 0;
     color: var(--default-tx-color);
     font-size: 1.2em;
     overflow-x: auto;

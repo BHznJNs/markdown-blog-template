@@ -1,10 +1,12 @@
 body.light {
     --default-tx-color: #333;
     --hovered-tx-color: #000;
+    --quote-tx-color: #4a4a4a;
 
     --default-bg-color: #fff;
     --dimmed-bg-color: #f5f5f5;
     --chart-bg-color: #fff;
+    --quote-bg-color: #f5f5f5;
 
     --fab-bg-color: #fff;
     --hovered-bg-color: #eee;
@@ -25,10 +27,13 @@ body.light {
 body.dark {
     --default-tx-color: #f7f7f7;
     --hovered-tx-color: #fff;
-
+    --quote-tx-color: #ececec;
+    
     --default-bg-color: #161616;
     --dimmed-bg-color: #3e3e3e;
     --chart-bg-color: #252525;
+    --quote-bg-color: #3e3e3e;
+
     --fab-bg-color: #424242;
     --hovered-bg-color: #333;
     --allpage-bg-color: #000;

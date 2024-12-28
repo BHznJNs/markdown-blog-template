@@ -8,6 +8,7 @@ div.media-container {
     transition: background .3s .15s,
                 box-shadow .3s;
 }
+
 @media screen and (max-width: 767px) {
     /* Mobile phone style */
     div.media-container:not(blockquote div.media-container) {
@@ -36,16 +37,19 @@ div.media-container:hover {
     box-shadow: var(--shadow-md-2);
 }
 
-div.media-container img,
+div.media-container.image {
+    width: fit-content;
+    max-width: 100%;
+}
+div.media-container img {
+    vertical-align: bottom;
+    cursor: pointer;
+}
 div.media-container video,
 div.media-container audio,
 div.media-container iframe {
     width: 100%;
     vertical-align: bottom;
-}
-
-div.media-container img {
-    cursor: pointer;
 }
 
 /*
@@ -56,6 +60,7 @@ div.media-container img.load-error {
     position: relative;
     display: inline-block;
     cursor: auto;
+    width: 100%;
     height: 16rem;
     max-height: 40vh;
 }

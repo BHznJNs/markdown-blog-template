@@ -62,19 +62,19 @@ export default {
 
     /**
      * enableRSS: Boolean
-     * used to enable / disable the RSS function, if you do not want add blogs in some directory to the `rss.xml` , just add it into the `rssIgnoreDir`
-     * 用来启用/禁用 RSS 发布功能，如果你不想将某些文件夹的内容添加到 `rss.xml` 中，将其添加到 `rssIgnoreDir` 中
+     * used to enable / disable the RSS function, if you do not want add blogs in some directory to the `rss.xml` , just add it into the `rssIgnoredDir`
+     * 用来启用/禁用 RSS 发布功能，如果你不想将某些文件夹的内容添加到 `rss.xml` 中，将其添加到 `rssIgnoredDir` 中
      */
     enableRSS: false,
-    rssIgnoreDir: [/* directories in `static`*/],
+    RSSIgnoredDir: [/* directories in `static`*/],
 
     /**
      * enableNewest: Boolean | Object<value: Boolean, ignoreDir: [String]>
-     * used to enable / disable the Newest function, if you do not want add blogs in some directory, just add it into the `newestIgnoreDir`
-     * 用来启用/禁用 最新博文 功能，如果你不想将某些文件夹的内容添加到其中，将其添加到 `newestIgnoreDir` 中
+     * used to enable / disable the Newest function, if you do not want add blogs in some directory, just add it into the `newestIgnoredDir`
+     * 用来启用/禁用 最新博文 功能，如果你不想将某些文件夹的内容添加到其中，将其添加到 `newestIgnoredDir` 中
      */
     enableNewest: false,
-    newestIgnoreDir: [/* directories in `static`*/],
+    newestIgnoredDir: [/* directories in `static`*/],
 
     /**
      * enableSearch: Boolean
@@ -103,6 +103,13 @@ export default {
      * 定义 `rss.xml` 中包含的博文个数
      */
     RSSCapacity: 16,
+
+    /**
+     * RSSExtraHeader: String
+     * defined the extra headers in `rss.xml`
+     * 定义 `rss.xml` 中包含的额外头数据
+     */
+    RSSExtraHeader: ``,
 
     /**
      * previewPort: Number

@@ -12,7 +12,7 @@ export default function(newestItems) {
     }
 
     const rssItemSize = config.RSSCapacity
-    const rssIgnoredDirs = config.rssIgnoreDir
+    const rssIgnoredDirs = config.RSSIgnoredDir
     const rssItems = newestItems
         .filter(item =>
             !isInIgnoredDir(item.path, rssIgnoredDirs)

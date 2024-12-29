@@ -11,7 +11,7 @@ export default function(items) {
 <title>${config.title ? config.title : "Markdown Blog"}</title>
 <link>${config.homepage ? config.homepage : "https://bhznjns.github.io/markdown-blog-template"}</link>
 ${config.description ? `<description>${htmlEntityReplace(config.description)}</description>` : ""}
-`
+${(config.RSSExtraHeader && config.RSSExtraHeader.length) ? config.RSSExtraHeader : ""}`
     const RssTemplateAfter = `</channel>
 </rss>`
 

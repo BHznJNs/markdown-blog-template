@@ -5,7 +5,7 @@ import isInIgnoredDir from "../../utils/isInIgnoredDir.js"
 import { indexFilePath } from "../../utils/path.js"
 
 export default function(newestList) {
-    const ignoreDirs = config.newestIgnoreDir
+    const ignoreDirs = config.newestIgnoredDir
     const filtered = newestList.filter(item =>
         !isInIgnoredDir(item.path, ignoreDirs)
     )

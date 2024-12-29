@@ -86,7 +86,7 @@ Value: number
 
 Defined the count of blogs contained in the ``rss.xml``.
 
-##rssIgnoreDir##
+##RSSIgnoredDir##
 
 Value: ``string[]`` (Array of string)
 
@@ -102,11 +102,11 @@ Value: true | false
 
 Used to enable / disable the Newest function.
 
-##newestIgnoreDir##
+##newestIgnoredDir##
 
 Value: ``string[]`` (Array of string)
 
-Ignored directories in the Newest, usage is the same as ##rssIgnoreDir##.
+Ignored directories in the Newest, usage is the same as ##RSSIgnoredDir##.
 
 - - -
 

@@ -42,6 +42,7 @@ div.media-container.image {
     max-width: 100%;
 }
 div.media-container img {
+    width: 100%;
     vertical-align: bottom;
     cursor: pointer;
 }

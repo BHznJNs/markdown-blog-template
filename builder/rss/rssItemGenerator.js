@@ -45,7 +45,7 @@ export default function rssItemGenerator(file) {
 
     globalThis.__ResourcePath__ = config.homepage + parent
     globalThis.__IframeCounter__ = 0
-    const articleInfo = renderer(fileContent)
+    const articleInfo = renderer(file.path, fileContent)
     globalThis.__ResourcePath__ = undefined
 
     const articlePath = rssResourcePath + filename + ".html"

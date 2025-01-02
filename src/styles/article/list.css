@@ -63,6 +63,8 @@ ol > li::before {
 li.task-list-item {
     list-style: none;
     margin-left: -1.6em;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 li.task-list-item input[type=checkbox] {
     width: 1em;

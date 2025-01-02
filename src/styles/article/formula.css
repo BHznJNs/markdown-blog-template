@@ -1,15 +1,8 @@
-@media screen and (min-width: 960px) {
-    /* PC style */
-    div.math {
-        font-size: 1.3em !important;
-    }
-}
-
 div.math {
     max-width: 100%; /* prevent overflow*/
     margin: 1rem 0;
     color: var(--default-tx-color);
-    font-size: 1.2em;
+    font-size: 1.125rem;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -17,7 +10,7 @@ div.math {
     box-sizing: border-box;
 }
 span.math {
-    font-size: 1.125em;
+    font-size: 1.125rem;
 }
 span.math img {
     /* for server side rendered formula */

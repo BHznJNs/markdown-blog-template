@@ -147,7 +147,7 @@ export class List {
         return el(this.tagName, childrenHTML)
     }
 
-    static orderedPattern   = source => /^([\s\t]*[0-9]+. )/.test(source)
+    static orderedPattern   = source => /^([\s\t]*[0-9]+\. )/.test(source)
     static unorderedPattern = source => /^([\s\t]*[+-] )/.test(source)
     static taskListPattern  = source => /^[\s\t]*- \[( |x|\*)\] /.test(source)
     static isListPattern    = source => List.orderedPattern(source) || List.unorderedPattern(source)
